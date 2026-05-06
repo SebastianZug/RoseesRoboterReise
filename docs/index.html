@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosees Roboterreise &ndash; Routenkarte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Rosees Roboterreise</h1>
+        <p class="subline">Geplante und tatsächlich gefahrene Route von Freiberg nach Dresden</p>
+      </div>
+      <div class="legend" id="legend"></div>
+    </header>
+
+    <main class="layout">
+      <div class="map-wrap">
+        <div id="map"></div>
+      </div>
+      <aside class="elevation-panel" id="elevation-panel" hidden>
+        <div class="elevation-header">
+          <h2>Höhenprofile</h2>
+          <button type="button" class="elev-close" aria-label="Höhenprofile schließen">&times;</button>
+        </div>
+        <div id="charts"></div>
+      </aside>
+    </main>
+
+    <footer class="meta" id="meta"></footer>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin=""></script>
+    <script src="app.js"></script>
+  </body>
+</html>

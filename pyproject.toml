@@ -1,0 +1,9 @@
+[project]
+name = "rosees-roboterreise"
+version = "0.2.0"
+description = "Statische Routenkarte (Freiberg -> Dresden) fuer GitHub Pages"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "gpxpy==1.6.2",
+]
