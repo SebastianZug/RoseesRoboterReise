@@ -1,4 +1,10 @@
-const ROUTE_KEYS = ["planned", "ridden"];
+const ROUTE_KEYS = ["planned", "plannedV2", "ridden"];
+
+const DASH_PATTERNS = {
+  long: "10, 8",
+  short: "3, 5",
+  none: null,
+};
 
 async function loadData() {
   const response = await fetch("data.json", { cache: "no-cache" });
@@ -6,13 +12,13 @@ async function loadData() {
   return response.json();
 }
 
-function drawRoute(map, route, dashed) {
+function drawRoute(map, route) {
   if (!route.points || route.points.length < 2) return null;
   const line = L.polyline(route.points, {
     color: route.color,
     weight: 4,
     opacity: 0.88,
-    dashArray: dashed ? "7, 9" : null,
+    dashArray: DASH_PATTERNS[route.dash] ?? null,
   }).addTo(map);
   const first = route.points[0];
   const last = route.points[route.points.length - 1];
@@ -39,7 +45,8 @@ function buildLegend(state, charts) {
     const swatch = document.createElement("span");
     swatch.className = "dot";
     swatch.style.background = route.color;
-    if (key === "planned") swatch.classList.add("dashed");
+    swatch.style.color = route.color;
+    if (route.dash && route.dash !== "none") swatch.classList.add("dashed");
 
     const name = document.createElement("span");
     name.textContent = route.name;
@@ -202,7 +209,8 @@ function setMeta(state) {
     const dt = new Date(state.generatedAt);
     parts.push(`Stand: ${dt.toLocaleDateString("de-DE")}`);
   }
-  if (state.planned && state.planned.file) parts.push(`Planung: ${state.planned.file}`);
+  if (state.planned && state.planned.file) parts.push(`V1: ${state.planned.file}`);
+  if (state.plannedV2 && state.plannedV2.file) parts.push(`V2: ${state.plannedV2.file}`);
   if (state.ridden && state.ridden.file) parts.push(`Evaluiert: ${state.ridden.file}`);
   meta.textContent = parts.join(" · ");
 }
@@ -222,18 +230,22 @@ async function main() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
 
-  const plannedLine = drawRoute(map, state.planned, true);
-  const riddenLine = drawRoute(map, state.ridden, false);
+  const lines = {};
+  ROUTE_KEYS.forEach((key) => {
+    const line = drawRoute(map, state[key] || {});
+    if (line) lines[key] = line;
+  });
 
-  const layers = [plannedLine, riddenLine].filter(Boolean);
-  if (layers.length > 0) {
-    const group = L.featureGroup(layers);
+  const drawnLines = Object.values(lines);
+  if (drawnLines.length > 0) {
+    const group = L.featureGroup(drawnLines);
     map.fitBounds(group.getBounds().pad(0.05));
   }
 
   const layerControl = L.control.layers(null, {}, { position: "topright", collapsed: false });
-  if (plannedLine) layerControl.addOverlay(plannedLine, "Routenplanung V1");
-  if (riddenLine) layerControl.addOverlay(riddenLine, "Mit dem Fahrrad evaluiert");
+  ROUTE_KEYS.forEach((key) => {
+    if (lines[key]) layerControl.addOverlay(lines[key], state[key].name);
+  });
   layerControl.addTo(map);
 
   const charts = createChartManager(state);

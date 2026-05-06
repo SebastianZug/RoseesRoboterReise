@@ -50,17 +50,34 @@ def score_ridden(path: Path) -> int:
     return score
 
 
-def pick_routes(gpx_files: list[Path]) -> tuple[Path | None, Path | None]:
+def score_planned_v2(path: Path) -> int:
+    full = str(path).lower()
+    score = 0
+    if "neuplanung" in full:
+        score += 20
+    if "2026" in full:
+        score += 5
+    return score
+
+
+def pick_routes(gpx_files: list[Path]) -> tuple[Path | None, Path | None, Path | None]:
     if not gpx_files:
-        return None, None
-    planned = max(gpx_files, key=lambda p: (score_planned(p), p.stat().st_mtime))
-    rest = [p for p in gpx_files if p != planned]
+        return None, None, None
+
+    planned_v2 = max(gpx_files, key=lambda p: (score_planned_v2(p), p.stat().st_mtime))
+    if score_planned_v2(planned_v2) <= 0:
+        planned_v2 = None
+
+    pool = [p for p in gpx_files if p != planned_v2]
+    planned = max(pool, key=lambda p: (score_planned(p), p.stat().st_mtime), default=None)
+    rest = [p for p in pool if p != planned]
     ridden = max(rest, key=lambda p: (score_ridden(p), p.stat().st_mtime), default=None)
+
     if planned and score_planned(planned) <= 0:
-        planned = max(gpx_files, key=lambda p: p.stat().st_mtime)
+        planned = max(pool, key=lambda p: p.stat().st_mtime, default=None)
     if ridden and score_ridden(ridden) <= 0:
         ridden = max(rest, key=lambda p: p.stat().st_mtime, default=None)
-    return planned, ridden
+    return planned, planned_v2, ridden
 
 
 def parse_track(gpx_path: Path) -> dict[str, Any]:
@@ -110,14 +127,16 @@ def build() -> dict[str, Any]:
         raise FileNotFoundError(f"Datenordner nicht gefunden: {DATA_ROOT}")
 
     gpx_files = list_gpx(DATA_ROOT)
-    planned_file, ridden_file = pick_routes(gpx_files)
-    if planned_file is None and ridden_file is None:
+    planned_file, planned_v2_file, ridden_file = pick_routes(gpx_files)
+    if planned_file is None and planned_v2_file is None and ridden_file is None:
         raise ValueError(f"Keine GPX-Dateien in {DATA_ROOT} gefunden")
 
-    planned = parse_track(planned_file) if planned_file else {"points": [], "elevation": []}
-    ridden = parse_track(ridden_file) if ridden_file else {"points": [], "elevation": []}
+    empty = {"points": [], "elevation": []}
+    planned = parse_track(planned_file) if planned_file else empty
+    planned_v2 = parse_track(planned_v2_file) if planned_v2_file else empty
+    ridden = parse_track(ridden_file) if ridden_file else empty
 
-    all_points = planned["points"] + ridden["points"]
+    all_points = planned["points"] + planned_v2["points"] + ridden["points"]
     if all_points:
         center = [
             round(sum(p[0] for p in all_points) / len(all_points), 6),
@@ -132,12 +151,21 @@ def build() -> dict[str, Any]:
         "planned": {
             "name": "Routenplanung V1",
             "color": "#1769ff",
+            "dash": "long",
             "file": relative_to_data_root(planned_file) if planned_file else None,
             **planned,
+        },
+        "plannedV2": {
+            "name": "Routenplanung V2",
+            "color": "#b03090",
+            "dash": "short",
+            "file": relative_to_data_root(planned_v2_file) if planned_v2_file else None,
+            **planned_v2,
         },
         "ridden": {
             "name": "Mit dem Fahrrad evaluiert",
             "color": "#008f5d",
+            "dash": "none",
             "file": relative_to_data_root(ridden_file) if ridden_file else None,
             **ridden,
         },
@@ -150,11 +178,13 @@ def main() -> int:
     with OUTPUT_FILE.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, separators=(",", ":"))
 
-    planned_pts = len(payload["planned"]["points"])
-    ridden_pts = len(payload["ridden"]["points"])
     size_kb = OUTPUT_FILE.stat().st_size / 1024
-    print(f"Geplant: {payload['planned']['file']} ({planned_pts} Punkte)")
-    print(f"Gefahren: {payload['ridden']['file']} ({ridden_pts} Punkte)")
+    for key, label in (("planned", "V1"), ("plannedV2", "V2"), ("ridden", "Evaluiert")):
+        route = payload[key]
+        if route["file"]:
+            print(f"{label}: {route['file']} ({len(route['points'])} Punkte)")
+        else:
+            print(f"{label}: keine Datei gefunden")
     print(f"Geschrieben: {OUTPUT_FILE} ({size_kb:.1f} KB)")
     return 0
 
