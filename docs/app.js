@@ -202,8 +202,8 @@ function setMeta(state) {
     const dt = new Date(state.generatedAt);
     parts.push(`Stand: ${dt.toLocaleDateString("de-DE")}`);
   }
-  if (state.planned && state.planned.file) parts.push(`Geplant: ${state.planned.file}`);
-  if (state.ridden && state.ridden.file) parts.push(`Gefahren: ${state.ridden.file}`);
+  if (state.planned && state.planned.file) parts.push(`Planung: ${state.planned.file}`);
+  if (state.ridden && state.ridden.file) parts.push(`Evaluiert: ${state.ridden.file}`);
   meta.textContent = parts.join(" · ");
 }
 
@@ -232,8 +232,8 @@ async function main() {
   }
 
   const layerControl = L.control.layers(null, {}, { position: "topright", collapsed: false });
-  if (plannedLine) layerControl.addOverlay(plannedLine, "Geplante Route");
-  if (riddenLine) layerControl.addOverlay(riddenLine, "Gefahrene Route");
+  if (plannedLine) layerControl.addOverlay(plannedLine, "Routenplanung V1");
+  if (riddenLine) layerControl.addOverlay(riddenLine, "Mit dem Fahrrad evaluiert");
   layerControl.addTo(map);
 
   const charts = createChartManager(state);

@@ -130,13 +130,13 @@ def build() -> dict[str, Any]:
         "generatedAt": datetime.now(UTC).isoformat(timespec="seconds"),
         "center": center,
         "planned": {
-            "name": "Geplante Route",
+            "name": "Routenplanung V1",
             "color": "#1769ff",
             "file": relative_to_data_root(planned_file) if planned_file else None,
             **planned,
         },
         "ridden": {
-            "name": "Mit dem Fahrrad abgefahren",
+            "name": "Mit dem Fahrrad evaluiert",
             "color": "#008f5d",
             "file": relative_to_data_root(ridden_file) if ridden_file else None,
             **ridden,
