@@ -1,4 +1,4 @@
-const ROUTE_KEYS = ["planned", "plannedV2", "ridden"];
+const ROUTE_KEYS = ["planned", "ridden", "plannedV2"];
 
 const DASH_PATTERNS = {
   long: "10, 8",
@@ -210,8 +210,8 @@ function setMeta(state) {
     parts.push(`Stand: ${dt.toLocaleDateString("de-DE")}`);
   }
   if (state.planned && state.planned.file) parts.push(`V1: ${state.planned.file}`);
-  if (state.plannedV2 && state.plannedV2.file) parts.push(`V2: ${state.plannedV2.file}`);
   if (state.ridden && state.ridden.file) parts.push(`Evaluiert: ${state.ridden.file}`);
+  if (state.plannedV2 && state.plannedV2.file) parts.push(`V2: ${state.plannedV2.file}`);
   meta.textContent = parts.join(" · ");
 }
 
