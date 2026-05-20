@@ -106,6 +106,9 @@ function createChartManager(state) {
     const wrap = document.createElement("section");
     wrap.className = "chart-block";
 
+    const canvasContainer = document.createElement("div");
+    canvasContainer.className = "chart-canvas-container";
+
     const title = document.createElement("h3");
     title.textContent = route.name;
 
@@ -122,7 +125,8 @@ function createChartManager(state) {
 
     wrap.appendChild(title);
     wrap.appendChild(meta);
-    wrap.appendChild(canvas);
+    canvasContainer.appendChild(canvas);
+    wrap.appendChild(canvasContainer);
     container.appendChild(wrap);
     wraps.set(key, wrap);
 
