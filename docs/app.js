@@ -81,7 +81,7 @@ function renderSchedule(layer, route, cum, schedule, boarding) {
   }
 
   const startLabel = `Start ${formatClock(start)}`;
-  L.tooltip({ permanent: true, direction: "left", className: "time-label" })
+  L.tooltip({ permanent: true, direction: "bottom", offset: [0, 10], className: "time-label" })
     .setLatLng(route.points[0])
     .setContent(startLabel)
     .addTo(layer);
@@ -113,14 +113,47 @@ function drawRoute(map, route, cum, schedule) {
     line.setTooltipContent(`${route.name} · km ${km.toFixed(1).replace(".", ",")}${at}`);
   });
 
-  const first = route.points[0];
   const last = route.points[route.points.length - 1];
-  L.circleMarker(first, { radius: 8, weight: 3, color: "#ffffff", fillColor: "#0ca30c", fillOpacity: 1 })
-    .bindTooltip("Start: Freiberg", { permanent: true, direction: "right" })
-    .addTo(layer);
   L.circleMarker(last, { radius: 8, weight: 3, color: "#ffffff", fillColor: "#1f1f1e", fillOpacity: 1 })
     .bindTooltip("Ende Robotertrack", { direction: "right" })
     .addTo(layer);
+  return layer.addTo(map);
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+}
+
+function placeCard(label, place) {
+  const logos = place.logos.map((src) => `<img src="${escapeHtml(src)}" alt="" />`).join("");
+  return (
+    `<div class="place-card"><div class="place-logos">${logos}</div>` +
+    `<strong>${escapeHtml(label)}: ${escapeHtml(place.name)}</strong>` +
+    `<span>${escapeHtml(place.address)}</span></div>`
+  );
+}
+
+// Start- und Zielort mit Logos sowie Fußweg von der Ausstiegshaltestelle zum Ziel.
+function drawPlaces(map, places, walk) {
+  const layer = L.layerGroup();
+  L.polyline(walk.line, { color: "#1f1f1e", weight: 3, opacity: 0.85, dashArray: "2, 6" })
+    .bindTooltip(`Fußweg ${walk.from} – ${walk.to} (ca. ${walk.m} m)`, { sticky: true })
+    .addTo(layer);
+
+  [
+    ["Start", places.start, "#0ca30c", "left"],
+    ["Ziel", places.goal, "#e5007d", "top"],
+  ].forEach(([label, place, color, direction]) => {
+    L.circleMarker(place.latlng, { radius: 9, weight: 3, color: "#ffffff", fillColor: color, fillOpacity: 1 })
+      .bindTooltip(placeCard(label, place), {
+        permanent: true,
+        direction,
+        offset: direction === "top" ? [0, -8] : [-8, 0],
+        className: "place-tooltip",
+        opacity: 1,
+      })
+      .addTo(layer);
+  });
   return layer.addTo(map);
 }
 
@@ -150,7 +183,10 @@ function drawTram(map, tram) {
     });
     if (isEnd) {
       const label = name === ride.from ? "Einstieg" : "Ausstieg";
-      marker.bindTooltip(`${label}: ${name}`, { permanent: true, direction: "left" }).addTo(rideLayer);
+      marker.bindTooltip(`${label}: ${name}`, {
+        permanent: true,
+        direction: name === ride.from ? "left" : "right",
+      }).addTo(rideLayer);
     } else {
       marker.bindTooltip(`Linie 7: ${name}`, { direction: "top" }).addTo(network);
     }
@@ -162,7 +198,7 @@ function drawTram(map, tram) {
 function buildLegend(map, entries) {
   const el = document.getElementById("legend");
   el.innerHTML = "";
-  entries.forEach(({ label, color, thick, layer }) => {
+  entries.forEach(({ label, color, thick, dashed, layer }) => {
     const row = document.createElement("label");
     row.className = "legend-row";
 
@@ -175,8 +211,9 @@ function buildLegend(map, entries) {
     });
 
     const swatch = document.createElement("span");
-    swatch.className = thick ? "swatch thick" : "swatch";
+    swatch.className = `swatch${thick ? " thick" : ""}${dashed ? " dashed" : ""}`;
     swatch.style.background = color;
+    swatch.style.color = color;
 
     const name = document.createElement("span");
     name.textContent = label;
@@ -262,6 +299,7 @@ async function main() {
   const cum = cumulativeKm(state.route.points, state.route.km);
   const tram = drawTram(map, state.tram);
   const route = drawRoute(map, state.route, cum, schedule);
+  const places = drawPlaces(map, state.places, state.walk);
 
   const ride = state.tram.ride;
   const boardingStop = state.tram.stops.find((s) => s[2] === ride.from);
@@ -282,10 +320,14 @@ async function main() {
       layer: tram.ride,
     },
     { label: "übrige Linie 7", color: TRAM_LIGHT, layer: tram.network },
+    { label: `Start/Ziel und Fußweg (${state.walk.m} m)`, color: "#1f1f1e", dashed: true, layer: places },
   ]);
   buildScheduleControls(map, scheduleLayer, schedule, refreshSchedule);
 
-  const bounds = L.latLngBounds(state.route.points).extend(L.latLngBounds(ride.line));
+  const bounds = L.latLngBounds(state.route.points)
+    .extend(L.latLngBounds(ride.line))
+    .extend(state.places.start.latlng)
+    .extend(state.places.goal.latlng);
   map.fitBounds(bounds.pad(0.05));
 
   setMeta(state);

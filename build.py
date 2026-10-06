@@ -18,7 +18,24 @@ ROOT = Path(__file__).parent
 SOURCES = ROOT / "sources"
 ROUTE_FILE = SOURCES / "20261005_FG_DD_corrected.html"
 TRAM_FILE = SOURCES / "20260930_103443_FG_DD_enhanced.html"
+WALK_FILE = SOURCES / "fussweg_bischofsweg_4transferlab.json"
 OUTPUT_FILE = ROOT / "docs" / "data.json"
+
+# Koordinaten per Nominatim (OpenStreetMap) zur jeweiligen Adresse ermittelt.
+PLACES = {
+    "start": {
+        "name": "RoboLab der TU Bergakademie Freiberg",
+        "address": "Burgstraße 36, 09599 Freiberg",
+        "latlng": [50.919087, 13.341896],
+        "logos": ["logos/tubaf.png", "logos/robolab.png"],
+    },
+    "goal": {
+        "name": "4transferLab",
+        "address": "Fritz-Reuter-Straße 1, 01097 Dresden",
+        "latlng": [51.072288, 13.744634],
+        "logos": ["logos/4transfer.png"],
+    },
+}
 
 # Douglas-Peucker tolerance in metres; keeps data.json small without visible change.
 SIMPLIFY_M = 1.0
@@ -79,11 +96,15 @@ def build() -> dict[str, Any]:
     tram = extract_const(tram_html, "TRAM7")
     ride = extract_const(tram_html, "RIDE")
 
+    walk = json.loads(WALK_FILE.read_text(encoding="utf-8"))
+
     raw = [[p[0], p[1]] for p in route_data["points"]]
     route = rounded(simplify(raw, SIMPLIFY_M))
 
     return {
         "generatedAt": datetime.now(UTC).isoformat(timespec="seconds"),
+        "places": PLACES,
+        "walk": {"from": walk["from"], "to": walk["to"], "m": walk["m"], "line": walk["line"]},
         "route": {
             "name": "Finale Route",
             "file": ROUTE_FILE.name,
