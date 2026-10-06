@@ -192,7 +192,8 @@ body {
   cursor: pointer;
 }
 
-.photo-pin img {
+/* Selektor schlägt Leaflets ".leaflet-marker-pane img { width: auto }" */
+.leaflet-container .leaflet-marker-pane .photo-pin img {
   display: block;
   width: 100%;
   height: 100%;

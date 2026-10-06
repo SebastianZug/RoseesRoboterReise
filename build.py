@@ -41,6 +41,7 @@ PLACES = {
 PHOTO = {
     "src": "rosee.jpg",
     "thumb": "rosee_vorschau.jpg",
+    "pin": "rosee_pin.jpg",
     "caption": "Rosee unterwegs auf einem Feldweg nördlich von Freiberg",
     "takenAt": "2026-10-05T12:08:28+02:00",
     "latlng": [50.925664, 13.33985],

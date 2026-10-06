@@ -261,19 +261,18 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
-// Foto des Roboters als runder Pin am Aufnahmeort; Klick öffnet eine größere Ansicht.
+// Foto des Roboters als runder Pin, zentriert auf dem Aufnahmeort; Klick öffnet eine größere Ansicht.
 function drawPhoto(map, photo, route, cum) {
   const layer = L.layerGroup();
   const km = cum[nearestIndex(route.points, L.latLng(photo.latlng))];
   const date = new Date(photo.takenAt).toLocaleDateString("de-DE");
 
-  L.circleMarker(photo.latlng, { radius: 4, weight: 2, color: "#ffffff", fillColor: "#1f1f1e", fillOpacity: 1 })
-    .addTo(layer);
   const icon = L.divIcon({
     className: "photo-pin",
-    html: `<img src="${escapeHtml(photo.thumb)}" alt="" /><span>Foto</span>`,
+    html: `<img src="${escapeHtml(photo.pin)}" alt="" /><span>Test</span>`,
     iconSize: [56, 56],
-    iconAnchor: [-6, 62], // rechts oberhalb des Aufnahmeorts
+    iconAnchor: [28, 28], // mittig auf dem Aufnahmeort
+    popupAnchor: [0, -28],
   });
   L.marker(photo.latlng, { icon, title: "Foto von Rosee anzeigen" })
     .bindPopup(
