@@ -1,6 +1,8 @@
 const ROUTE_COLOR = "#1769ff";
 const TRAM_COLOR = "#7b3fa0";
 const TRAM_LIGHT = "#bfa3d1";
+const DEFAULT_START = "07:30";
+const DEFAULT_SPEED = 5; // km/h
 
 async function loadData() {
   const response = await fetch("data.json", { cache: "no-cache" });
@@ -12,13 +14,104 @@ function formatKm(km) {
   return `${km.toFixed(1).replace(".", ",")} km`;
 }
 
-function drawRoute(map, route) {
+function formatClock(minutes) {
+  const m = Math.round(minutes) % (24 * 60);
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+}
+
+function parseClock(value) {
+  const [h, m] = value.split(":").map(Number);
+  return h * 60 + m;
+}
+
+// Kumulierte Distanz je Routenpunkt, skaliert auf die Länge des unvereinfachten Tracks.
+function cumulativeKm(points, totalKm) {
+  const cum = [0];
+  for (let i = 1; i < points.length; i++) {
+    cum.push(cum[i - 1] + L.latLng(points[i - 1]).distanceTo(points[i]) / 1000);
+  }
+  const scale = totalKm / cum[cum.length - 1];
+  return cum.map((d) => d * scale);
+}
+
+function pointAtKm(points, cum, km) {
+  let i = 1;
+  while (i < cum.length - 1 && cum[i] < km) i++;
+  const f = cum[i] === cum[i - 1] ? 0 : (km - cum[i - 1]) / (cum[i] - cum[i - 1]);
+  const [a, b] = [points[i - 1], points[i]];
+  return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
+}
+
+function nearestIndex(points, latlng) {
+  let best = 0;
+  let bestD = Infinity;
+  points.forEach((p, i) => {
+    const d = latlng.distanceTo(p);
+    if (d < bestD) {
+      bestD = d;
+      best = i;
+    }
+  });
+  return best;
+}
+
+// Uhrzeit-Marken alle 30 min entlang der Route; volle Stunden dauerhaft beschriftet.
+function renderSchedule(layer, route, cum, schedule, boarding) {
+  layer.clearLayers();
+  const { start, speed } = schedule;
+  if (!(speed > 0) || Number.isNaN(start)) return;
+  const totalMin = (route.km / speed) * 60;
+
+  for (let clock = Math.floor(start / 30) * 30 + 30; clock < start + totalMin; clock += 30) {
+    const km = ((clock - start) / 60) * speed;
+    const fullHour = clock % 60 === 0;
+    L.circleMarker(pointAtKm(route.points, cum, km), {
+      radius: fullHour ? 6 : 4,
+      weight: 2,
+      color: "#1f1f1e",
+      fillColor: fullHour ? "#ffd23f" : "#ffffff",
+      fillOpacity: 1,
+    })
+      .bindTooltip(fullHour ? formatClock(clock) : `ca. ${formatClock(clock)} · km ${km.toFixed(1).replace(".", ",")}`, {
+        permanent: fullHour,
+        direction: "top",
+        className: fullHour ? "time-label" : "",
+      })
+      .addTo(layer);
+  }
+
+  const startLabel = `Start ${formatClock(start)}`;
+  L.tooltip({ permanent: true, direction: "left", className: "time-label" })
+    .setLatLng(route.points[0])
+    .setContent(startLabel)
+    .addTo(layer);
+
+  if (boarding) {
+    const at = start + (cum[boarding.index] / speed) * 60;
+    L.tooltip({ permanent: true, direction: "bottom", className: "time-label" })
+      .setLatLng(route.points[boarding.index])
+      .setContent(`ca. ${formatClock(at)} an ${boarding.name}`)
+      .addTo(layer);
+  }
+
+  L.tooltip({ permanent: true, direction: "right", className: "time-label" })
+    .setLatLng(route.points[route.points.length - 1])
+    .setContent(`Trackende ca. ${formatClock(start + totalMin)}`)
+    .addTo(layer);
+}
+
+function drawRoute(map, route, cum, schedule) {
   const layer = L.layerGroup();
   if (!route.points || route.points.length < 2) return layer;
   L.polyline(route.points, { color: "#ffffff", weight: 8, opacity: 0.8, interactive: false }).addTo(layer);
-  L.polyline(route.points, { color: ROUTE_COLOR, weight: 4, opacity: 0.95 })
+  const line = L.polyline(route.points, { color: ROUTE_COLOR, weight: 4, opacity: 0.95 })
     .bindTooltip(`${route.name} · ${formatKm(route.km)}`, { sticky: true })
     .addTo(layer);
+  line.on("mousemove", (e) => {
+    const km = cum[nearestIndex(route.points, e.latlng)];
+    const at = schedule.speed > 0 ? ` · ca. ${formatClock(schedule.start + (km / schedule.speed) * 60)}` : "";
+    line.setTooltipContent(`${route.name} · km ${km.toFixed(1).replace(".", ",")}${at}`);
+  });
 
   const first = route.points[0];
   const last = route.points[route.points.length - 1];
@@ -93,6 +186,44 @@ function buildLegend(map, entries) {
   });
 }
 
+function buildScheduleControls(map, layer, schedule, refresh) {
+  const row = document.createElement("div");
+  row.className = "legend-row schedule";
+
+  const toggle = document.createElement("label");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) layer.addTo(map);
+    else map.removeLayer(layer);
+  });
+  toggle.append(checkbox, " Zeitplan");
+
+  const start = document.createElement("input");
+  start.type = "time";
+  start.value = DEFAULT_START;
+  start.title = "Startzeit in Freiberg";
+
+  const speed = document.createElement("input");
+  speed.type = "number";
+  speed.min = "0.5";
+  speed.max = "30";
+  speed.step = "0.5";
+  speed.value = String(DEFAULT_SPEED);
+  speed.title = "Durchschnittsgeschwindigkeit";
+
+  const update = () => {
+    schedule.start = parseClock(start.value || DEFAULT_START);
+    schedule.speed = parseFloat(speed.value);
+    refresh();
+  };
+  start.addEventListener("change", update);
+  speed.addEventListener("change", update);
+
+  row.append(toggle, "ab", start, "mit", speed, "km/h");
+  document.getElementById("legend").appendChild(row);
+}
+
 function setMeta(state) {
   const parts = [];
   if (state.generatedAt) {
@@ -127,10 +258,21 @@ async function main() {
   L.control.layers(baseLayers, null, { position: "topright" }).addTo(map);
   L.control.scale({ imperial: false }).addTo(map);
 
+  const schedule = { start: parseClock(DEFAULT_START), speed: DEFAULT_SPEED };
+  const cum = cumulativeKm(state.route.points, state.route.km);
   const tram = drawTram(map, state.tram);
-  const route = drawRoute(map, state.route);
+  const route = drawRoute(map, state.route, cum, schedule);
 
   const ride = state.tram.ride;
+  const boardingStop = state.tram.stops.find((s) => s[2] === ride.from);
+  const boarding = boardingStop && {
+    name: ride.from,
+    index: nearestIndex(state.route.points, L.latLng(boardingStop[0], boardingStop[1])),
+  };
+  const scheduleLayer = L.layerGroup();
+  const refreshSchedule = () => renderSchedule(scheduleLayer, state.route, cum, schedule, boarding);
+  refreshSchedule();
+
   buildLegend(map, [
     { label: `${state.route.name} (${formatKm(state.route.km)})`, color: ROUTE_COLOR, layer: route },
     {
@@ -141,6 +283,7 @@ async function main() {
     },
     { label: "übrige Linie 7", color: TRAM_LIGHT, layer: tram.network },
   ]);
+  buildScheduleControls(map, scheduleLayer, schedule, refreshSchedule);
 
   const bounds = L.latLngBounds(state.route.points).extend(L.latLngBounds(ride.line));
   map.fitBounds(bounds.pad(0.05));

@@ -117,3 +117,33 @@ body {
     font-size: 1.15rem;
   }
 }
+
+.legend-row.schedule {
+  cursor: default;
+  gap: 0.35rem;
+}
+
+.legend-row.schedule label {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.legend-row.schedule input[type="time"],
+.legend-row.schedule input[type="number"] {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.05rem 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.legend-row.schedule input[type="number"] {
+  width: 3.6rem;
+}
+
+.leaflet-tooltip.time-label {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
