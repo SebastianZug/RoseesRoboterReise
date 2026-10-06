@@ -22,13 +22,22 @@
     <header class="topbar">
       <div>
         <h1>Rosees Roboterreise</h1>
-        <p class="subline">Finale Route Freiberg &ndash; Dresden mit Straßenbahn Linie 7</p>
+        <p class="subline">Routenplanungen V1/V2 und Fahrrad-Evaluierung Freiberg &ndash; Dresden</p>
       </div>
       <div class="legend" id="legend"></div>
     </header>
 
-    <main class="map-wrap">
-      <div id="map"></div>
+    <main class="layout">
+      <div class="map-wrap">
+        <div id="map"></div>
+      </div>
+      <aside class="elevation-panel" id="elevation-panel" hidden>
+        <div class="elevation-header">
+          <h2>Höhenprofile</h2>
+          <button type="button" class="elev-close" aria-label="Höhenprofile schließen">&times;</button>
+        </div>
+        <div id="charts"></div>
+      </aside>
     </main>
 
     <footer class="meta" id="meta"></footer>
@@ -38,6 +47,7 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin=""></script>
     <script src="app.js"></script>
   </body>
 </html>

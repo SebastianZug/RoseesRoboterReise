@@ -1,30 +1,27 @@
 # Rosees Roboterreise – Routenkarte
 
-Statische Webseite mit der geplanten und der tatsächlich gefahrenen Route von Freiberg nach Dresden. Pro Track lässt sich ein Höhenprofil ein- und ausblenden.
+Statische Webseite mit der finalen Route von Freiberg nach Dresden und der Straßenbahnfahrt mit Linie 7 (Altnossener Straße – Bischofsweg) in Dresden.
 
 Live: https://sebastianzug.github.io/RoseesRoboterReise/
 
 ## Aufbau
 
 - `docs/` – statische Site (von GitHub Pages ausgeliefert)
-  - `index.html`, `app.js`, `style.css` – Karte (Leaflet) + Höhenprofile (Chart.js)
-  - `data.json` – generiert aus den GPX-Quellen
-- `build.py` – liest die GPX-Dateien und schreibt `docs/data.json`
+  - `index.html`, `app.js`, `style.css` – Karte (Leaflet)
+  - `data.json` – generiert aus den Quelldateien in `sources/`
+- `sources/` – Kartenexporte als Datenquelle
+  - `20261005_FG_DD_corrected.html` – finale Route
+  - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) und geplante Bahnfahrt
+- `build.py` – liest beide Exporte und schreibt `docs/data.json` (Route vereinfacht auf 1 m Toleranz)
+- `archive/` – frühere Entwürfe (Routenplanung V1/V2, Fahrrad-Evaluierung)
 
 ## Daten neu generieren
 
 ```bash
-uv sync
 uv run python build.py
 ```
 
-Datenquelle ist standardmäßig `/home/sz/Nextcloud/2025-09-19-Freiberg nach Dresden/` und kann per Umgebungsvariable überschrieben werden:
-
-```bash
-ROBOT_ROUTE_DATA_DIR="/anderer/pfad" uv run python build.py
-```
-
-`build.py` wählt aus den gefundenen GPX-Dateien per Heuristik je eine geplante und eine gefahrene Route aus (Schlagwörter im Dateinamen, neuester Auswertungs-Ordner als Tiebreaker).
+Bei einer neuen Route die Datei in `sources/` ablegen und `ROUTE_FILE` bzw. `TRAM_FILE` in `build.py` anpassen.
 
 ## Deployment
 
