@@ -10,7 +10,7 @@ Live: https://sebastianzug.github.io/RoseesRoboterReise/
   - `index.html`, `app.js`, `style.css` – Karte (Leaflet)
   - `data.json` – generiert aus den Quelldateien in `sources/`
   - `logos/` – TU Bergakademie Freiberg, RoboLab (Start) und 4transfer (Ziel)
-  - `rosee.jpg`, `rosee_vorschau.jpg` – Foto des Roboters (verkleinert aus `sources/RoseeOnTour.jpeg`, ohne Metadaten)
+  - `rosee.jpg`, `rosee_vorschau.jpg` – Foto des Roboters (verkleinert aus `sources/RoseeOnTour.jpeg`, ohne Metadaten); Aufnahmeort (km 1,0) steht als `PHOTO` in `build.py`
 - `sources/` – Kartenexporte als Datenquelle
   - `20261005_FG_DD_corrected.html` – finale Route
   - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) und geplante Bahnfahrt

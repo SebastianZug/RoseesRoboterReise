@@ -261,27 +261,31 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
-// Foto des Roboters als einklappbare Karte unten rechts.
-function addRobotPhoto(map) {
-  const control = L.control({ position: "bottomright" });
-  control.onAdd = () => {
-    const el = L.DomUtil.create("figure", "robot-photo");
-    el.innerHTML =
-      '<button type="button" class="robot-photo-toggle" aria-expanded="true">Rosee ausblenden</button>' +
-      '<a href="rosee.jpg" target="_blank" rel="noopener" title="Foto in voller Größe öffnen">' +
-      '<img src="rosee_vorschau.jpg" alt="Roboter Rosee mit roter Fahne auf einem Feldweg" /></a>' +
-      "<figcaption>So sieht Rosee aus – unterwegs auf einem Feldweg</figcaption>";
-    const toggle = el.querySelector(".robot-photo-toggle");
-    toggle.addEventListener("click", () => {
-      const collapsed = el.classList.toggle("collapsed");
-      toggle.textContent = collapsed ? "Foto von Rosee" : "Rosee ausblenden";
-      toggle.setAttribute("aria-expanded", String(!collapsed));
-    });
-    L.DomEvent.disableClickPropagation(el);
-    L.DomEvent.disableScrollPropagation(el);
-    return el;
-  };
-  control.addTo(map);
+// Foto des Roboters als runder Pin am Aufnahmeort; Klick öffnet eine größere Ansicht.
+function drawPhoto(map, photo, route, cum) {
+  const layer = L.layerGroup();
+  const km = cum[nearestIndex(route.points, L.latLng(photo.latlng))];
+  const date = new Date(photo.takenAt).toLocaleDateString("de-DE");
+
+  L.circleMarker(photo.latlng, { radius: 4, weight: 2, color: "#ffffff", fillColor: "#1f1f1e", fillOpacity: 1 })
+    .addTo(layer);
+  const icon = L.divIcon({
+    className: "photo-pin",
+    html: `<img src="${escapeHtml(photo.thumb)}" alt="" /><span>Foto</span>`,
+    iconSize: [56, 56],
+    iconAnchor: [-6, 62], // rechts oberhalb des Aufnahmeorts
+  });
+  L.marker(photo.latlng, { icon, title: "Foto von Rosee anzeigen" })
+    .bindPopup(
+      `<figure class="photo-popup"><a href="${escapeHtml(photo.src)}" target="_blank" rel="noopener" ` +
+        `title="Foto in voller Größe öffnen"><img src="${escapeHtml(photo.thumb)}" ` +
+        `alt="Roboter Rosee mit roter Fahne auf einem Feldweg" /></a>` +
+        `<figcaption><strong>So sieht Rosee aus</strong>${escapeHtml(photo.caption)}` +
+        `<span>${date} · bei km ${km.toFixed(1).replace(".", ",")} der Route</span></figcaption></figure>`,
+      { maxWidth: 300, minWidth: 260 },
+    )
+    .addTo(layer);
+  return layer.addTo(map);
 }
 
 function setMeta(state) {
@@ -323,6 +327,7 @@ async function main() {
   const tram = drawTram(map, state.tram);
   const route = drawRoute(map, state.route, cum, schedule);
   const places = drawPlaces(map, state.places, state.walk);
+  const photo = drawPhoto(map, state.photo, state.route, cum);
 
   const ride = state.tram.ride;
   const boardingStop = state.tram.stops.find((s) => s[2] === ride.from);
@@ -344,6 +349,7 @@ async function main() {
     },
     { label: "übrige Linie 7", color: TRAM_LIGHT, layer: tram.network },
     { label: `Start/Ziel und Fußweg (${state.walk.m} m)`, color: "#1f1f1e", dashed: true, layer: places },
+    { label: "Foto von Rosee", color: "#e5007d", layer: photo },
   ]);
   buildScheduleControls(map, scheduleLayer, schedule, refreshSchedule);
 
@@ -353,7 +359,6 @@ async function main() {
     .extend(state.places.goal.latlng);
   map.fitBounds(bounds.pad(0.05));
 
-  addRobotPhoto(map);
   setMeta(state);
 }
 
