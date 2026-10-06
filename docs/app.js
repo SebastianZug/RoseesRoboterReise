@@ -261,6 +261,29 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
+// Foto des Roboters als einklappbare Karte unten rechts.
+function addRobotPhoto(map) {
+  const control = L.control({ position: "bottomright" });
+  control.onAdd = () => {
+    const el = L.DomUtil.create("figure", "robot-photo");
+    el.innerHTML =
+      '<button type="button" class="robot-photo-toggle" aria-expanded="true">Rosee ausblenden</button>' +
+      '<a href="rosee.jpg" target="_blank" rel="noopener" title="Foto in voller Größe öffnen">' +
+      '<img src="rosee_vorschau.jpg" alt="Roboter Rosee mit roter Fahne auf einem Feldweg" /></a>' +
+      "<figcaption>So sieht Rosee aus – unterwegs auf einem Feldweg</figcaption>";
+    const toggle = el.querySelector(".robot-photo-toggle");
+    toggle.addEventListener("click", () => {
+      const collapsed = el.classList.toggle("collapsed");
+      toggle.textContent = collapsed ? "Foto von Rosee" : "Rosee ausblenden";
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+    });
+    L.DomEvent.disableClickPropagation(el);
+    L.DomEvent.disableScrollPropagation(el);
+    return el;
+  };
+  control.addTo(map);
+}
+
 function setMeta(state) {
   const parts = [];
   if (state.generatedAt) {
@@ -330,6 +353,7 @@ async function main() {
     .extend(state.places.goal.latlng);
   map.fitBounds(bounds.pad(0.05));
 
+  addRobotPhoto(map);
   setMeta(state);
 }
 
