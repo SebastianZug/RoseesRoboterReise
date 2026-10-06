@@ -10,7 +10,7 @@ Live: https://sebastianzug.github.io/RoseesRoboterReise/
   - `index.html`, `app.js`, `style.css` – Karte (Leaflet)
   - `data.json` – generiert aus den Quelldateien in `sources/`
   - `logos/` – TU Bergakademie Freiberg, RoboLab (Start) und 4transfer (Ziel)
-  - `rosee.jpg`, `rosee_vorschau.jpg`, `rosee_pin.jpg` – Foto des Roboters (verkleinert aus `sources/RoseeOnTour.jpeg`, ohne Metadaten); Aufnahmeort (km 1,0) steht als `PHOTO` in `build.py`
+  - `fotos.json`, `fotos/` – Fotos von unterwegs (automatisch erzeugt, siehe unten)
 - `sources/` – Kartenexporte als Datenquelle
   - `20261005_FG_DD_corrected.html` – finale Route
   - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) und geplante Bahnfahrt
@@ -25,6 +25,19 @@ uv run python build.py
 ```
 
 Bei einer neuen Route die Datei in `sources/` ablegen und `ROUTE_FILE` bzw. `TRAM_FILE` in `build.py` anpassen.
+
+## Fotos von unterwegs
+
+Fotos in `fotos-upload/` hochladen (z. B. am Handy über github.com → Ordner → „Add file → Upload files“).
+Die Action [`fotos.yml`](.github/workflows/fotos.yml) startet bei jedem Upload und ruft `tools/process_photos.py` auf:
+
+- liest GPS-Position und Aufnahmezeit aus den EXIF-Daten,
+- veröffentlicht nur Fotos höchstens 250 m neben Route, Bahnfahrt oder Fußweg,
+- schreibt verkleinerte Fassungen ohne Metadaten nach `docs/fotos/` und trägt sie in `docs/fotos.json` ein,
+- entfernt den Upload; Fotos ohne GPS bleiben liegen, Fotos abseits der Strecke werden gelöscht.
+
+Das Ergebnis steht in der Zusammenfassung des Action-Laufs. Ein Foto wieder entfernen: Eintrag aus
+`docs/fotos.json` und die drei Dateien in `docs/fotos/` löschen.
 
 ## Deployment
 

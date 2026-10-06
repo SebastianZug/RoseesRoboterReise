@@ -1,0 +1,47 @@
+name: Fotos verarbeiten
+
+on:
+  push:
+    branches: [main]
+    paths: ["fotos-upload/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Mehrere Uploads kurz hintereinander nacheinander abarbeiten, nicht abbrechen.
+concurrency:
+  group: fotos
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pillow installieren
+        run: pip install pillow==11.3.0
+
+      - name: Fotos auswerten
+        run: python tools/process_photos.py
+
+      - name: Änderungen committen
+        run: |
+          git add -A docs/fotos docs/fotos.json fotos-upload
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Fotos von unterwegs aktualisiert"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

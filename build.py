@@ -37,16 +37,6 @@ PLACES = {
     },
 }
 
-# Aufnahmeort aus den EXIF-GPS-Daten des Originals (PXL_20261005_100828428.jpg, Pixel 6a).
-PHOTO = {
-    "src": "rosee.jpg",
-    "thumb": "rosee_vorschau.jpg",
-    "pin": "rosee_pin.jpg",
-    "caption": "Rosee unterwegs auf einem Feldweg nördlich von Freiberg",
-    "takenAt": "2026-10-05T12:08:28+02:00",
-    "latlng": [50.925664, 13.33985],
-}
-
 # Douglas-Peucker tolerance in metres; keeps data.json small without visible change.
 SIMPLIFY_M = 1.0
 
@@ -114,7 +104,6 @@ def build() -> dict[str, Any]:
     return {
         "generatedAt": datetime.now(UTC).isoformat(timespec="seconds"),
         "places": PLACES,
-        "photo": PHOTO,
         "walk": {"from": walk["from"], "to": walk["to"], "m": walk["m"], "line": walk["line"]},
         "route": {
             "name": "Finale Route",

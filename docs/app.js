@@ -261,29 +261,48 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
-// Foto des Roboters als runder Pin, zentriert auf dem Aufnahmeort; Klick öffnet eine größere Ansicht.
-function drawPhoto(map, photo, route, cum) {
-  const layer = L.layerGroup();
-  const km = cum[nearestIndex(route.points, L.latLng(photo.latlng))];
-  const date = new Date(photo.takenAt).toLocaleDateString("de-DE");
+const SECTION_LABELS = { tram: "während der Bahnfahrt (Linie 7)", walk: "auf dem Fußweg zum 4transferLab" };
 
-  const icon = L.divIcon({
-    className: "photo-pin",
-    html: `<img src="${escapeHtml(photo.pin)}" alt="" /><span>Test</span>`,
-    iconSize: [56, 56],
-    iconAnchor: [28, 28], // mittig auf dem Aufnahmeort
-    popupAnchor: [0, -28],
+async function loadPhotos() {
+  try {
+    const response = await fetch("fotos.json", { cache: "no-cache" });
+    return response.ok ? await response.json() : [];
+  } catch {
+    return [];
+  }
+}
+
+// Uhrzeit und Datum direkt aus dem Zeitstempel (Ortszeit der Aufnahme, unabhängig von der Zeitzone des Betrachters).
+function photoTime(takenAt) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(takenAt || "");
+  return match ? { date: `${match[3]}.${match[2]}.${match[1]}`, clock: `${match[4]}:${match[5]}` } : null;
+}
+
+// Fotos von unterwegs als runde Pins, zentriert auf dem Aufnahmeort; Klick öffnet eine größere Ansicht.
+function drawPhotos(map, photos) {
+  map.createPane("photos").style.zIndex = 660; // über den dauerhaften Beschriftungen (650)
+  const layer = L.layerGroup();
+  photos.forEach((photo) => {
+    const time = photoTime(photo.takenAt);
+    const where =
+      photo.section === "route" ? `bei km ${photo.km.toFixed(1).replace(".", ",")} der Route` : SECTION_LABELS[photo.section] || "";
+    const icon = L.divIcon({
+      className: "photo-pin",
+      html: `<img src="${escapeHtml(photo.pin)}" alt="" />${time ? `<span>${time.clock}</span>` : ""}`,
+      iconSize: [56, 56],
+      iconAnchor: [28, 28], // mittig auf dem Aufnahmeort
+      popupAnchor: [0, -28],
+    });
+    const meta = [time && `${time.date}, ${time.clock} Uhr`, where].filter(Boolean).join(" · ");
+    L.marker(photo.latlng, { icon, pane: "photos", title: "Foto anzeigen", riseOnHover: true })
+      .bindPopup(
+        `<figure class="photo-popup"><a href="${escapeHtml(photo.full)}" target="_blank" rel="noopener" ` +
+          `title="Foto in voller Größe öffnen"><img src="${escapeHtml(photo.thumb)}" alt="Foto von unterwegs" /></a>` +
+          `<figcaption><span>${escapeHtml(meta)}</span></figcaption></figure>`,
+        { maxWidth: 300, minWidth: 260 },
+      )
+      .addTo(layer);
   });
-  L.marker(photo.latlng, { icon, title: "Foto von Rosee anzeigen" })
-    .bindPopup(
-      `<figure class="photo-popup"><a href="${escapeHtml(photo.src)}" target="_blank" rel="noopener" ` +
-        `title="Foto in voller Größe öffnen"><img src="${escapeHtml(photo.thumb)}" ` +
-        `alt="Roboter Rosee mit roter Fahne auf einem Feldweg" /></a>` +
-        `<figcaption><strong>So sieht Rosee aus</strong>${escapeHtml(photo.caption)}` +
-        `<span>${date} · bei km ${km.toFixed(1).replace(".", ",")} der Route</span></figcaption></figure>`,
-      { maxWidth: 300, minWidth: 260 },
-    )
-    .addTo(layer);
   return layer.addTo(map);
 }
 
@@ -326,7 +345,8 @@ async function main() {
   const tram = drawTram(map, state.tram);
   const route = drawRoute(map, state.route, cum, schedule);
   const places = drawPlaces(map, state.places, state.walk);
-  const photo = drawPhoto(map, state.photo, state.route, cum);
+  const photos = await loadPhotos();
+  const photoLayer = drawPhotos(map, photos);
 
   const ride = state.tram.ride;
   const boardingStop = state.tram.stops.find((s) => s[2] === ride.from);
@@ -348,8 +368,9 @@ async function main() {
     },
     { label: "übrige Linie 7", color: TRAM_LIGHT, layer: tram.network },
     { label: `Start/Ziel und Fußweg (${state.walk.m} m)`, color: "#1f1f1e", dashed: true, layer: places },
-    { label: "Foto von Rosee", color: "#e5007d", layer: photo },
-  ]);
+  ].concat(
+    photos.length ? [{ label: `Fotos von unterwegs (${photos.length})`, color: "#e5007d", layer: photoLayer }] : [],
+  ));
   buildScheduleControls(map, scheduleLayer, schedule, refreshSchedule);
 
   const bounds = L.latLngBounds(state.route.points)

@@ -3,5 +3,5 @@ __pycache__/
 .venv/
 
 # Originalfotos (enthalten ggf. GPS-Daten)
-images/
-PXL_*.jpg
+/images/
+/PXL_*.jpg
