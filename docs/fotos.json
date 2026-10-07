@@ -414,5 +414,109 @@
   ],
   "section": "route",
   "km": 14.27
+ },
+ {
+  "id": "a82440eb58af",
+  "full": "fotos/a82440eb58af.jpg",
+  "thumb": "fotos/a82440eb58af_thumb.jpg",
+  "pin": "fotos/a82440eb58af_pin.jpg",
+  "takenAt": "2026-10-07T14:07:40+02:00",
+  "latlng": [
+   50.986917,
+   13.473628
+  ],
+  "section": "route",
+  "km": 15.13
+ },
+ {
+  "id": "406f1d612744",
+  "full": "fotos/406f1d612744.jpg",
+  "thumb": "fotos/406f1d612744_thumb.jpg",
+  "pin": "fotos/406f1d612744_pin.jpg",
+  "takenAt": "2026-10-07T14:30:47+02:00",
+  "latlng": [
+   50.997178,
+   13.474239
+  ],
+  "section": "route",
+  "km": 16.42
+ },
+ {
+  "id": "c060ee4c016b",
+  "full": "fotos/c060ee4c016b.jpg",
+  "thumb": "fotos/c060ee4c016b_thumb.jpg",
+  "pin": "fotos/c060ee4c016b_pin.jpg",
+  "takenAt": "2026-10-07T14:35:16+02:00",
+  "latlng": [
+   50.99925,
+   13.476942
+  ],
+  "section": "route",
+  "km": 16.73
+ },
+ {
+  "id": "91b84b9fa027",
+  "full": "fotos/91b84b9fa027.jpg",
+  "thumb": "fotos/91b84b9fa027_thumb.jpg",
+  "pin": "fotos/91b84b9fa027_pin.jpg",
+  "takenAt": "2026-10-07T14:41:36+02:00",
+  "latlng": [
+   51.000769,
+   13.477081
+  ],
+  "section": "route",
+  "km": 16.91
+ },
+ {
+  "id": "3d9d265dd637",
+  "full": "fotos/3d9d265dd637.jpg",
+  "thumb": "fotos/3d9d265dd637_thumb.jpg",
+  "pin": "fotos/3d9d265dd637_pin.jpg",
+  "takenAt": "2026-10-07T14:46:26+02:00",
+  "latlng": [
+   50.998614,
+   13.4782
+  ],
+  "section": "route",
+  "km": 16.71
+ },
+ {
+  "id": "98dc84c793d1",
+  "full": "fotos/98dc84c793d1.jpg",
+  "thumb": "fotos/98dc84c793d1_thumb.jpg",
+  "pin": "fotos/98dc84c793d1_pin.jpg",
+  "takenAt": "2026-10-07T14:52:44+02:00",
+  "latlng": [
+   51.001592,
+   13.485189
+  ],
+  "section": "route",
+  "km": 17.59
+ },
+ {
+  "id": "e79b28ca7a60",
+  "full": "fotos/e79b28ca7a60.jpg",
+  "thumb": "fotos/e79b28ca7a60_thumb.jpg",
+  "pin": "fotos/e79b28ca7a60_pin.jpg",
+  "takenAt": "2026-10-07T14:57:31+02:00",
+  "latlng": [
+   51.000611,
+   13.489933
+  ],
+  "section": "route",
+  "km": 17.95
+ },
+ {
+  "id": "240113c07612",
+  "full": "fotos/240113c07612.jpg",
+  "thumb": "fotos/240113c07612_thumb.jpg",
+  "pin": "fotos/240113c07612_pin.jpg",
+  "takenAt": "2026-10-07T15:08:18+02:00",
+  "latlng": [
+   50.999367,
+   13.499972
+  ],
+  "section": "route",
+  "km": 18.68
  }
 ]
