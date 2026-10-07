@@ -1,1 +1,80 @@
-[]
+[
+ {
+  "id": "c7f6f57942c1",
+  "full": "fotos/c7f6f57942c1.jpg",
+  "thumb": "fotos/c7f6f57942c1_thumb.jpg",
+  "pin": "fotos/c7f6f57942c1_pin.jpg",
+  "takenAt": "2026-10-07T07:14:29+02:00",
+  "latlng": [
+   50.919042,
+   13.341761
+  ],
+  "section": "route",
+  "km": 0.0
+ },
+ {
+  "id": "588d3895c232",
+  "full": "fotos/588d3895c232.jpg",
+  "thumb": "fotos/588d3895c232_thumb.jpg",
+  "pin": "fotos/588d3895c232_pin.jpg",
+  "takenAt": "2026-10-07T08:10:54+02:00",
+  "latlng": [
+   50.929078,
+   13.341606
+  ],
+  "section": "route",
+  "km": 1.74
+ },
+ {
+  "id": "972940c61292",
+  "full": "fotos/972940c61292.jpg",
+  "thumb": "fotos/972940c61292_thumb.jpg",
+  "pin": "fotos/972940c61292_pin.jpg",
+  "takenAt": "2026-10-07T08:23:02+02:00",
+  "latlng": [
+   50.932033,
+   13.345114
+  ],
+  "section": "route",
+  "km": 2.16
+ },
+ {
+  "id": "6ea9f8c4de19",
+  "full": "fotos/6ea9f8c4de19.jpg",
+  "thumb": "fotos/6ea9f8c4de19_thumb.jpg",
+  "pin": "fotos/6ea9f8c4de19_pin.jpg",
+  "takenAt": "2026-10-07T08:29:07+02:00",
+  "latlng": [
+   50.934,
+   13.34705
+  ],
+  "section": "route",
+  "km": 2.42
+ },
+ {
+  "id": "9da19d26c0f5",
+  "full": "fotos/9da19d26c0f5.jpg",
+  "thumb": "fotos/9da19d26c0f5_thumb.jpg",
+  "pin": "fotos/9da19d26c0f5_pin.jpg",
+  "takenAt": "2026-10-07T08:39:24+02:00",
+  "latlng": [
+   50.936117,
+   13.353372
+  ],
+  "section": "route",
+  "km": 2.94
+ },
+ {
+  "id": "0d149467ede3",
+  "full": "fotos/0d149467ede3.jpg",
+  "thumb": "fotos/0d149467ede3_thumb.jpg",
+  "pin": "fotos/0d149467ede3_pin.jpg",
+  "takenAt": "2026-10-07T08:56:16+02:00",
+  "latlng": [
+   50.938703,
+   13.360881
+  ],
+  "section": "route",
+  "km": 3.55
+ }
+]
