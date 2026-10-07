@@ -1,6 +1,6 @@
 # Rosees Roboterreise
 
-**Am 7. Oktober 2026 ist Rosee, der Roboter aus dem RoboLab der TU Bergakademie Freiberg, auf eigenen Rädern von Freiberg nach Dresden gereist.**
+**Am 7. Oktober 2026 ist Rosee, der Roboter aus dem RoboLab der TU Bergakademie Freiberg, von Freiberg bis ins 4transferLab nach Dresden gereist.**
 
 ![Rosee vor einer Dorfkirche am Wegesrand](docs/fotos/f4c779b1199e_thumb.jpg)
 
@@ -11,13 +11,13 @@
 | | |
 |---|---|
 | **Start** | RoboLab der TU Bergakademie Freiberg, Burgstraße 36, Freiberg – 7. Oktober 2026, ca. 7:15 Uhr |
-| **Ziel** | 4transferLab, Fritz-Reuter-Straße 1, Dresden-Neustadt |
+| **Ziel** | 4transferLab, Fritz-Reuter-Straße 1, Dresden-Neustadt – angekommen gegen 18:50 Uhr |
 | **Route** | 37,9 km über Feld- und Radwege, Ortsdurchfahrten und Landstraßen bis an den Dresdner Stadtrand |
 | **Weiter mit** | Straßenbahn Linie 7 durch Dresden bis zur Haltestelle Bischofsweg, dann zu Fuß zum 4transferLab |
 
-Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee im Kofferraum zurück, am frühen Abend ging es in Gompitz in die Straßenbahn.
+Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee im Kofferraum zurück. Am frühen Abend ging es in Gompitz in die Straßenbahn, vorbei an Semperoper und Theaterplatz, und vom Bischofsweg die letzten Meter zu Fuß ins 4transferLab.
 
-Unterwegs hat das Team **56 Fotos** gemacht. Sie erscheinen auf der Karte genau dort, wo sie aufgenommen wurden – ein Klick auf einen Foto-Pin zeigt Bild, Uhrzeit und Streckenkilometer.
+Unterwegs hat das Team **59 Fotos** gemacht. Sie erscheinen auf der Karte genau dort, wo sie aufgenommen wurden – ein Klick auf einen Foto-Pin zeigt Bild, Uhrzeit und Streckenkilometer.
 
 ## Beteiligte
 
