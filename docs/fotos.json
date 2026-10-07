@@ -141,5 +141,96 @@
   ],
   "section": "route",
   "km": 5.75
+ },
+ {
+  "id": "741b1357a1f0",
+  "full": "fotos/741b1357a1f0.jpg",
+  "thumb": "fotos/741b1357a1f0_thumb.jpg",
+  "pin": "fotos/741b1357a1f0_pin.jpg",
+  "takenAt": "2026-10-07T10:21:43+02:00",
+  "latlng": [
+   50.951572,
+   13.388825
+  ],
+  "section": "route",
+  "km": 6.29
+ },
+ {
+  "id": "605b9c7ee17e",
+  "full": "fotos/605b9c7ee17e.jpg",
+  "thumb": "fotos/605b9c7ee17e_thumb.jpg",
+  "pin": "fotos/605b9c7ee17e_pin.jpg",
+  "takenAt": "2026-10-07T10:27:12+02:00",
+  "latlng": [
+   50.953261,
+   13.392311
+  ],
+  "section": "route",
+  "km": 6.6
+ },
+ {
+  "id": "f5f14b471b90",
+  "full": "fotos/f5f14b471b90.jpg",
+  "thumb": "fotos/f5f14b471b90_thumb.jpg",
+  "pin": "fotos/f5f14b471b90_pin.jpg",
+  "takenAt": "2026-10-07T10:33:39+02:00",
+  "latlng": [
+   50.954308,
+   13.396542
+  ],
+  "section": "route",
+  "km": 6.92
+ },
+ {
+  "id": "bfb12d53afe1",
+  "full": "fotos/bfb12d53afe1.jpg",
+  "thumb": "fotos/bfb12d53afe1_thumb.jpg",
+  "pin": "fotos/bfb12d53afe1_pin.jpg",
+  "takenAt": "2026-10-07T10:42:16+02:00",
+  "latlng": [
+   50.954072,
+   13.39695
+  ],
+  "section": "route",
+  "km": 7.0
+ },
+ {
+  "id": "e04b29a1a9ee",
+  "full": "fotos/e04b29a1a9ee.jpg",
+  "thumb": "fotos/e04b29a1a9ee_thumb.jpg",
+  "pin": "fotos/e04b29a1a9ee_pin.jpg",
+  "takenAt": "2026-10-07T10:48:18+02:00",
+  "latlng": [
+   50.954011,
+   13.396883
+  ],
+  "section": "route",
+  "km": 7.0
+ },
+ {
+  "id": "069847d800d6",
+  "full": "fotos/069847d800d6.jpg",
+  "thumb": "fotos/069847d800d6_thumb.jpg",
+  "pin": "fotos/069847d800d6_pin.jpg",
+  "takenAt": "2026-10-07T11:03:02+02:00",
+  "latlng": [
+   50.957019,
+   13.397172
+  ],
+  "section": "route",
+  "km": 7.51
+ },
+ {
+  "id": "7d9ebff0f4fe",
+  "full": "fotos/7d9ebff0f4fe.jpg",
+  "thumb": "fotos/7d9ebff0f4fe_thumb.jpg",
+  "pin": "fotos/7d9ebff0f4fe_pin.jpg",
+  "takenAt": "2026-10-07T11:04:34+02:00",
+  "latlng": [
+   50.957019,
+   13.397172
+  ],
+  "section": "route",
+  "km": 7.51
  }
 ]
