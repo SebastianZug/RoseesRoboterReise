@@ -14,6 +14,8 @@ Dort stellen sich andere Herausforderungen als in der Stadt: Feldwege statt Gehw
 
 Rosees Weg von Freiberg durch die Dörfer und Felder bis nach Dresden macht beides sichtbar: das Unterwegssein auf dem Land und die Ankunft in der Stadt.
 
+Die Reise steht im Zusammenhang mit dem Forschungsprojekt **[Lieferroboter-3L](https://lausitzerlieferroboter.de/)** – „Lieferroboter für den ländlichen Raum in der Lausitz“. Es untersucht, wie wirtschaftlich, gesellschaftlich akzeptiert und technisch machbar Lieferroboter auf dem Land sind.
+
 ## Die Reise
 
 | | |
@@ -30,6 +32,7 @@ Unterwegs hat das Team **59 Fotos** gemacht. Sie erscheinen auf der Karte genau 
 ## Beteiligte
 
 - **RoboLab der TU Bergakademie Freiberg** – Robotiklabor des Instituts für Informatik, Burgstraße 36, Freiberg
+- **[Lieferroboter-3L](https://lausitzerlieferroboter.de/)** – Forschungsprojekt der BTU Cottbus-Senftenberg mit der TU Bergakademie Freiberg und Partnern aus der Lausitz, gefördert vom Bundesministerium für Digitales und Verkehr
 - **4transfer** – Innovationsverbund für Wissens- und Technologietransfer, mit dem 4transferLab in der Dresdner Neustadt als Ziel der Reise
 
 ## Die Karte
