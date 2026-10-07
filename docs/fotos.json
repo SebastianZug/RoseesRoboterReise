@@ -724,5 +724,41 @@
    13.632636
   ],
   "section": "tram"
+ },
+ {
+  "id": "0671f07d72fc",
+  "full": "fotos/0671f07d72fc.jpg",
+  "thumb": "fotos/0671f07d72fc_thumb.jpg",
+  "pin": "fotos/0671f07d72fc_pin.jpg",
+  "takenAt": "2026-10-07T18:24:24+02:00",
+  "latlng": [
+   51.053567,
+   13.736839
+  ],
+  "section": "tram"
+ },
+ {
+  "id": "5d61bc9b4074",
+  "full": "fotos/5d61bc9b4074.jpg",
+  "thumb": "fotos/5d61bc9b4074_thumb.jpg",
+  "pin": "fotos/5d61bc9b4074_pin.jpg",
+  "takenAt": "2026-10-07T18:38:23+02:00",
+  "latlng": [
+   51.071836,
+   13.746344
+  ],
+  "section": "walk"
+ },
+ {
+  "id": "b26db1b8e9ea",
+  "full": "fotos/b26db1b8e9ea.jpg",
+  "thumb": "fotos/b26db1b8e9ea_thumb.jpg",
+  "pin": "fotos/b26db1b8e9ea_pin.jpg",
+  "takenAt": "2026-10-07T18:50:14+02:00",
+  "latlng": [
+   51.072206,
+   13.744653
+  ],
+  "section": "walk"
  }
 ]
