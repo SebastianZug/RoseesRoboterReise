@@ -1,51 +1,36 @@
-# Rosees Roboterreise – Routenkarte
+# Rosees Roboterreise
 
-Statische Webseite mit der finalen Route von Freiberg nach Dresden und der Straßenbahnfahrt mit Linie 7 (Altnossener Straße – Bischofsweg) in Dresden.
+**Am 7. Oktober 2026 ist Rosee, der Roboter aus dem RoboLab der TU Bergakademie Freiberg, auf eigenen Rädern von Freiberg nach Dresden gereist.**
 
-Live: https://sebastianzug.github.io/RoseesRoboterReise/
+![Rosee vor einer Dorfkirche am Wegesrand](docs/fotos/f4c779b1199e_thumb.jpg)
 
-## Aufbau
+👉 **Karte mit Route und Fotos: https://sebastianzug.github.io/RoseesRoboterReise/**
 
-- `docs/` – statische Site (von GitHub Pages ausgeliefert)
-  - `index.html`, `app.js`, `style.css` – Karte (Leaflet)
-  - `data.json` – generiert aus den Quelldateien in `sources/`
-  - `logos/` – TU Bergakademie Freiberg, RoboLab (Start) und 4transfer (Ziel)
-  - `fotos.json`, `fotos/` – Fotos von unterwegs (automatisch erzeugt, siehe unten)
-- `sources/` – Kartenexporte als Datenquelle
-  - `20261005_FG_DD_corrected.html` – finale Route
-  - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) und geplante Bahnfahrt
-  - `fussweg_bischofsweg_4transferlab.json` – Fußweg von der Haltestelle Bischofsweg zum 4transferLab (OSRM, OSM-Daten)
-- `build.py` – enthält Start (RoboLab, Burgstraße 36) und Ziel (4transferLab, Fritz-Reuter-Straße 1), liest die Quellen und schreibt `docs/data.json` (Route vereinfacht auf 1 m Toleranz)
-- `archive/` – frühere Entwürfe (Routenplanung V1/V2, Fahrrad-Evaluierung)
+## Die Reise
 
-## Daten neu generieren
+| | |
+|---|---|
+| **Start** | RoboLab der TU Bergakademie Freiberg, Burgstraße 36, Freiberg – 7. Oktober 2026, ca. 7:15 Uhr |
+| **Ziel** | 4transferLab, Fritz-Reuter-Straße 1, Dresden-Neustadt |
+| **Route** | 37,9 km über Feld- und Radwege, Ortsdurchfahrten und Landstraßen bis an den Dresdner Stadtrand |
+| **Weiter mit** | Straßenbahn Linie 7 durch Dresden bis zur Haltestelle Bischofsweg, dann zu Fuß zum 4transferLab |
 
-```bash
-uv run python build.py
-```
+Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee im Kofferraum zurück, am frühen Abend ging es in Gompitz in die Straßenbahn.
 
-Bei einer neuen Route die Datei in `sources/` ablegen und `ROUTE_FILE` bzw. `TRAM_FILE` in `build.py` anpassen.
+Unterwegs hat das Team **56 Fotos** gemacht. Sie erscheinen auf der Karte genau dort, wo sie aufgenommen wurden – ein Klick auf einen Foto-Pin zeigt Bild, Uhrzeit und Streckenkilometer.
 
-## Fotos von unterwegs
+## Beteiligte
 
-Fotos in `fotos-upload/` hochladen (z. B. am Handy über github.com → Ordner → „Add file → Upload files“).
-Die Action [`fotos.yml`](.github/workflows/fotos.yml) startet bei jedem Upload und ruft `tools/process_photos.py` auf:
+- **RoboLab der TU Bergakademie Freiberg** – Robotiklabor des Instituts für Informatik, Burgstraße 36, Freiberg
+- **4transfer** – Innovationsverbund für Wissens- und Technologietransfer, mit dem 4transferLab in der Dresdner Neustadt als Ziel der Reise
 
-- liest GPS-Position und Aufnahmezeit aus den EXIF-Daten,
-- veröffentlicht nur Fotos höchstens 250 m neben Route, Bahnfahrt oder Fußweg,
-- schreibt verkleinerte Fassungen ohne Metadaten nach `docs/fotos/` und trägt sie in `docs/fotos.json` ein,
-- entfernt den Upload; Fotos ohne GPS bleiben liegen, Fotos abseits der Strecke werden gelöscht.
+## Die Karte
 
-Das Ergebnis steht in der Zusammenfassung des Action-Laufs. Ein Foto wieder entfernen: Eintrag aus
-`docs/fotos.json` und die drei Dateien in `docs/fotos/` löschen.
+Die Webseite zeigt
 
-## Deployment
+- die gefahrene Route von Freiberg nach Dresden,
+- die Straßenbahn Linie 7 und den Fußweg zum 4transferLab,
+- alle Fotos von unterwegs als Pins entlang der Strecke,
+- einen einblendbaren Zeitplan (Startzeit und Tempo frei wählbar).
 
-GitHub Pages ist auf `main` / Ordner `/docs` konfiguriert. Nach jeder Änderung:
-
-```bash
-uv run python build.py    # docs/data.json aktualisieren
-git add docs/data.json
-git commit -m "Routendaten aktualisiert"
-git push
-```
+Wie die Karte aufgebaut ist, wie Fotos automatisch dazukommen und wie die Daten aktualisiert werden, steht in [TECHNIK.md](TECHNIK.md).
