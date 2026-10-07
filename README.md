@@ -6,6 +6,14 @@
 
 👉 **Karte mit Route und Fotos: https://sebastianzug.github.io/RoseesRoboterReise/**
 
+## Worum geht es?
+
+Die Reise soll zeigen, dass Robotik auch – und gerade – im ländlichen Raum möglich ist.
+
+Dort stellen sich andere Herausforderungen als in der Stadt: Feldwege statt Gehwege, Straßen ohne Bürgersteig, lange Strecken zwischen den Orten. Zugleich eröffnen sich auf dem Land andere Möglichkeiten, Robotik für die **Daseinsvorsorge** einzusetzen – also dafür, Menschen auch abseits der Städte mit dem zu versorgen, was sie für ihren Alltag brauchen.
+
+Rosees Weg von Freiberg durch die Dörfer und Felder bis nach Dresden macht beides sichtbar: das Unterwegssein auf dem Land und die Ankunft in der Stadt.
+
 ## Die Reise
 
 | | |
