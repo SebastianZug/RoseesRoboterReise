@@ -37,6 +37,17 @@ PLACES = {
     },
 }
 
+# Abschnitte, die Rosee am 7.10.2026 im Auto zurückgelegt hat (Streckenkilometer).
+# Abgeleitet aus den Fotos: 16:09 Uhr im Kofferraum bei km 21,2, ab 16:46 Uhr wieder unterwegs bei km 29,1.
+CAR_SECTIONS = [
+    {
+        "from_km": 21.2,
+        "to_km": 29.1,
+        "label": "Nachmittags mit dem Auto",
+        "reason": "wegen hoher Verkehrsbelastung im Feierabendverkehr",
+    }
+]
+
 # Douglas-Peucker tolerance in metres; keeps data.json small without visible change.
 SIMPLIFY_M = 1.0
 
@@ -86,6 +97,25 @@ def length_km(points: list[list[float]]) -> float:
     return sum(math.dist(xy[i - 1], xy[i]) for i in range(1, len(xy))) / 1000
 
 
+def sub_line(points: list[list[float]], total_km: float, from_km: float, to_km: float) -> list[list[float]]:
+    """Teilstück der Route zwischen zwei Streckenkilometern (auf die Gesamtlänge skaliert)."""
+    xy = to_xy(points)
+    cum = [0.0]
+    for a, b in zip(xy, xy[1:]):
+        cum.append(cum[-1] + math.dist(a, b))
+    scale = total_km * 1000 / cum[-1]
+    cum = [c * scale / 1000 for c in cum]
+
+    def at(km: float) -> list[float]:
+        i = next((j for j in range(1, len(cum)) if cum[j] >= km), len(cum) - 1)
+        f = 0.0 if cum[i] == cum[i - 1] else (km - cum[i - 1]) / (cum[i] - cum[i - 1])
+        a, b = points[i - 1], points[i]
+        return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]
+
+    inner = [p for p, c in zip(points, cum) if from_km < c < to_km]
+    return [at(from_km), *inner, at(to_km)]
+
+
 def rounded(points: list[list[float]]) -> list[list[float]]:
     return [[round(p[0], 6), round(p[1], 6)] for p in points]
 
@@ -110,6 +140,10 @@ def build() -> dict[str, Any]:
             "file": ROUTE_FILE.name,
             "km": round(length_km(raw), 2),
             "points": route,
+            "car": [
+                {**section, "points": rounded(sub_line(route, round(length_km(raw), 2), section["from_km"], section["to_km"]))}
+                for section in CAR_SECTIONS
+            ],
         },
         "tram": {
             "name": "Straßenbahn Linie 7",

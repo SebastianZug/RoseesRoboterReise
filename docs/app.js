@@ -1,6 +1,7 @@
 const ROUTE_COLOR = "#1769ff";
 const TRAM_COLOR = "#7b3fa0";
 const TRAM_LIGHT = "#bfa3d1";
+const CAR_COLOR = "#f39200";
 const DEFAULT_START = "07:30";
 const DEFAULT_SPEED = 5; // km/h
 
@@ -98,6 +99,24 @@ function renderSchedule(layer, route, cum, schedule, boarding) {
     .setLatLng(route.points[route.points.length - 1])
     .setContent(`Trackende ca. ${formatClock(start + totalMin)}`)
     .addTo(layer);
+}
+
+// Abschnitte, die Rosee im Auto zurückgelegt hat – transparent über der Route markiert.
+function drawCarSections(map, sections) {
+  const layer = L.layerGroup();
+  sections.forEach((section) => {
+    const reason = section.reason ? ` – ${section.reason}` : "";
+    const label = `${section.label}: km ${formatKmRange(section.from_km, section.to_km)}${reason}`;
+    L.polyline(section.points, { color: "#ffffff", weight: 10, opacity: 0.95, interactive: false }).addTo(layer);
+    L.polyline(section.points, { color: CAR_COLOR, weight: 6, opacity: 1, dashArray: "10, 8" })
+      .bindTooltip(label, { sticky: true })
+      .addTo(layer);
+  });
+  return layer.addTo(map);
+}
+
+function formatKmRange(from, to) {
+  return `${from.toFixed(1).replace(".", ",")}–${to.toFixed(1).replace(".", ",")}`;
 }
 
 function drawRoute(map, route, cum, schedule) {
@@ -362,6 +381,8 @@ async function main() {
   const cum = cumulativeKm(state.route.points, state.route.km);
   const tram = drawTram(map, state.tram);
   const route = drawRoute(map, state.route, cum, schedule);
+  const carSections = state.route.car || [];
+  const car = drawCarSections(map, carSections);
   const places = drawPlaces(map, state.places, state.walk);
   const photos = await loadPhotos();
   const photoLayer = drawPhotos(map, photos);
@@ -378,6 +399,13 @@ async function main() {
 
   buildLegend(map, [
     { label: `${state.route.name} (${formatKm(state.route.km)})`, color: ROUTE_COLOR, layer: route },
+    ...carSections.map((s) => ({
+      label: `${s.label} (km ${formatKmRange(s.from_km, s.to_km)})`,
+      color: CAR_COLOR,
+      dashed: true,
+      thick: true,
+      layer: car,
+    })),
     {
       label: `Bahnfahrt Linie 7: ${ride.from} – ${ride.to} (${formatKm(ride.km)})`,
       color: TRAM_COLOR,
