@@ -518,5 +518,211 @@
   ],
   "section": "route",
   "km": 18.68
+ },
+ {
+  "id": "58edf9a3fd5c",
+  "full": "fotos/58edf9a3fd5c.jpg",
+  "thumb": "fotos/58edf9a3fd5c_thumb.jpg",
+  "pin": "fotos/58edf9a3fd5c_pin.jpg",
+  "takenAt": "2026-10-07T15:25:53+02:00",
+  "latlng": [
+   50.996389,
+   13.513306
+  ],
+  "section": "route",
+  "km": 19.68
+ },
+ {
+  "id": "faf7ab9ca58d",
+  "full": "fotos/faf7ab9ca58d.jpg",
+  "thumb": "fotos/faf7ab9ca58d_thumb.jpg",
+  "pin": "fotos/faf7ab9ca58d_pin.jpg",
+  "takenAt": "2026-10-07T15:47:27+02:00",
+  "latlng": [
+   50.991172,
+   13.523919
+  ],
+  "section": "route",
+  "km": 20.7
+ },
+ {
+  "id": "5066e5018ac3",
+  "full": "fotos/5066e5018ac3.jpg",
+  "thumb": "fotos/5066e5018ac3_thumb.jpg",
+  "pin": "fotos/5066e5018ac3_pin.jpg",
+  "takenAt": "2026-10-07T15:51:21+02:00",
+  "latlng": [
+   50.990817,
+   13.526383
+  ],
+  "section": "route",
+  "km": 20.92
+ },
+ {
+  "id": "2a6cfae0c12b",
+  "full": "fotos/2a6cfae0c12b.jpg",
+  "thumb": "fotos/2a6cfae0c12b_thumb.jpg",
+  "pin": "fotos/2a6cfae0c12b_pin.jpg",
+  "takenAt": "2026-10-07T16:05:20+02:00",
+  "latlng": [
+   50.992369,
+   13.5273
+  ],
+  "section": "route",
+  "km": 21.13
+ },
+ {
+  "id": "02c5e926c61b",
+  "full": "fotos/02c5e926c61b.jpg",
+  "thumb": "fotos/02c5e926c61b_thumb.jpg",
+  "pin": "fotos/02c5e926c61b_pin.jpg",
+  "takenAt": "2026-10-07T16:09:10+02:00",
+  "latlng": [
+   50.993164,
+   13.526269
+  ],
+  "section": "route",
+  "km": 21.22
+ },
+ {
+  "id": "ff7afae4ed7d",
+  "full": "fotos/ff7afae4ed7d.jpg",
+  "thumb": "fotos/ff7afae4ed7d_thumb.jpg",
+  "pin": "fotos/ff7afae4ed7d_pin.jpg",
+  "takenAt": "2026-10-07T16:21:13+02:00",
+  "latlng": [
+   51.019078,
+   13.558258
+  ],
+  "section": "route",
+  "km": 25.15
+ },
+ {
+  "id": "9d6b8d53db23",
+  "full": "fotos/9d6b8d53db23.jpg",
+  "thumb": "fotos/9d6b8d53db23_thumb.jpg",
+  "pin": "fotos/9d6b8d53db23_pin.jpg",
+  "takenAt": "2026-10-07T16:46:04+02:00",
+  "latlng": [
+   51.032436,
+   13.601097
+  ],
+  "section": "route",
+  "km": 29.07
+ },
+ {
+  "id": "1faddea96ea9",
+  "full": "fotos/1faddea96ea9.jpg",
+  "thumb": "fotos/1faddea96ea9_thumb.jpg",
+  "pin": "fotos/1faddea96ea9_pin.jpg",
+  "takenAt": "2026-10-07T16:54:27+02:00",
+  "latlng": [
+   51.034186,
+   13.605772
+  ],
+  "section": "route",
+  "km": 29.55
+ },
+ {
+  "id": "f46e0eb474ad",
+  "full": "fotos/f46e0eb474ad.jpg",
+  "thumb": "fotos/f46e0eb474ad_thumb.jpg",
+  "pin": "fotos/f46e0eb474ad_pin.jpg",
+  "takenAt": "2026-10-07T17:07:15+02:00",
+  "latlng": [
+   51.039372,
+   13.604539
+  ],
+  "section": "route",
+  "km": 30.21
+ },
+ {
+  "id": "73e1efcae59c",
+  "full": "fotos/73e1efcae59c.jpg",
+  "thumb": "fotos/73e1efcae59c_thumb.jpg",
+  "pin": "fotos/73e1efcae59c_pin.jpg",
+  "takenAt": "2026-10-07T17:14:30+02:00",
+  "latlng": [
+   51.042858,
+   13.606444
+  ],
+  "section": "route",
+  "km": 30.63
+ },
+ {
+  "id": "2e5ea2628907",
+  "full": "fotos/2e5ea2628907.jpg",
+  "thumb": "fotos/2e5ea2628907_thumb.jpg",
+  "pin": "fotos/2e5ea2628907_pin.jpg",
+  "takenAt": "2026-10-07T17:21:16+02:00",
+  "latlng": [
+   51.044531,
+   13.612128
+  ],
+  "section": "route",
+  "km": 31.14
+ },
+ {
+  "id": "b6f27debd4bd",
+  "full": "fotos/b6f27debd4bd.jpg",
+  "thumb": "fotos/b6f27debd4bd_thumb.jpg",
+  "pin": "fotos/b6f27debd4bd_pin.jpg",
+  "takenAt": "2026-10-07T17:26:44+02:00",
+  "latlng": [
+   51.044503,
+   13.616111
+  ],
+  "section": "route",
+  "km": 31.44
+ },
+ {
+  "id": "b9714d3e0022",
+  "full": "fotos/b9714d3e0022.jpg",
+  "thumb": "fotos/b9714d3e0022_thumb.jpg",
+  "pin": "fotos/b9714d3e0022_pin.jpg",
+  "takenAt": "2026-10-07T17:29:03+02:00",
+  "latlng": [
+   51.044169,
+   13.618697
+  ],
+  "section": "route",
+  "km": 31.62
+ },
+ {
+  "id": "2859985cdf92",
+  "full": "fotos/2859985cdf92.jpg",
+  "thumb": "fotos/2859985cdf92_thumb.jpg",
+  "pin": "fotos/2859985cdf92_pin.jpg",
+  "takenAt": "2026-10-07T17:35:55+02:00",
+  "latlng": [
+   51.043272,
+   13.62395
+  ],
+  "section": "route",
+  "km": 32.01
+ },
+ {
+  "id": "620597e459e5",
+  "full": "fotos/620597e459e5.jpg",
+  "thumb": "fotos/620597e459e5_thumb.jpg",
+  "pin": "fotos/620597e459e5_pin.jpg",
+  "takenAt": "2026-10-07T17:40:59+02:00",
+  "latlng": [
+   51.041306,
+   13.625453
+  ],
+  "section": "tram"
+ },
+ {
+  "id": "5fc4524b72d9",
+  "full": "fotos/5fc4524b72d9.jpg",
+  "thumb": "fotos/5fc4524b72d9_thumb.jpg",
+  "pin": "fotos/5fc4524b72d9_pin.jpg",
+  "takenAt": "2026-10-07T17:49:20+02:00",
+  "latlng": [
+   51.040119,
+   13.632636
+  ],
+  "section": "tram"
  }
 ]
