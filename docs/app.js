@@ -279,9 +279,27 @@ function photoTime(takenAt) {
 }
 
 // Fotos von unterwegs als runde Pins, zentriert auf dem Aufnahmeort; Klick öffnet eine größere Ansicht.
+// Dicht beieinanderliegende Fotos werden zu einem Pin mit Anzahl gruppiert, der sich beim Klick auffächert.
 function drawPhotos(map, photos) {
   map.createPane("photos").style.zIndex = 660; // über den dauerhaften Beschriftungen (650)
-  const layer = L.layerGroup();
+  const layer = L.markerClusterGroup({
+    clusterPane: "photos",
+    maxClusterRadius: 45,
+    spiderfyDistanceMultiplier: 4,
+    showCoverageOnHover: false,
+    iconCreateFunction: (cluster) => {
+      const latest = cluster
+        .getAllChildMarkers()
+        .map((m) => m.options.photo)
+        .sort((a, b) => (a.takenAt || "").localeCompare(b.takenAt || ""))
+        .pop();
+      return L.divIcon({
+        className: "photo-pin photo-cluster",
+        html: `<img src="${escapeHtml(latest.pin)}" alt="" /><b>${cluster.getChildCount()}</b><span>Fotos</span>`,
+        iconSize: [56, 56],
+      });
+    },
+  });
   photos.forEach((photo) => {
     const time = photoTime(photo.takenAt);
     const where =
@@ -294,7 +312,7 @@ function drawPhotos(map, photos) {
       popupAnchor: [0, -28],
     });
     const meta = [time && `${time.date}, ${time.clock} Uhr`, where].filter(Boolean).join(" · ");
-    L.marker(photo.latlng, { icon, pane: "photos", title: "Foto anzeigen", riseOnHover: true })
+    L.marker(photo.latlng, { icon, pane: "photos", title: "Foto anzeigen", riseOnHover: true, photo })
       .bindPopup(
         `<figure class="photo-popup"><a href="${escapeHtml(photo.full)}" target="_blank" rel="noopener" ` +
           `title="Foto in voller Größe öffnen"><img src="${escapeHtml(photo.thumb)}" alt="Foto von unterwegs" /></a>` +
