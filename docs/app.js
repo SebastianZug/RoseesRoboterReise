@@ -261,7 +261,7 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
-const SECTION_LABELS = { tram: "während der Bahnfahrt (Linie 7)", walk: "auf dem Fußweg zum 4transferLab" };
+const SECTION_LABELS = { tram: "an der Straßenbahn Linie 7", walk: "auf dem Fußweg zum 4transferLab" };
 
 async function loadPhotos() {
   try {

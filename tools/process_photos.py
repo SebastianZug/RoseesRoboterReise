@@ -2,7 +2,7 @@
 
 Für jedes Foto im Upload-Ordner:
 - GPS-Position und Aufnahmezeit aus den EXIF-Daten lesen,
-- prüfen, ob es nahe der Strecke liegt (Route, Bahnfahrt Linie 7 oder Fußweg),
+- prüfen, ob es nahe der Strecke liegt (Route, Straßenbahn Linie 7 oder Fußweg),
 - verkleinerte Fassungen ohne Metadaten nach docs/fotos/ schreiben,
 - den Eintrag in docs/fotos.json ergänzen.
 
@@ -103,13 +103,27 @@ class Track:
         return best
 
 
-def load_tracks() -> dict[str, Track]:
+class MultiTrack:
+    """Mehrere Teilstücke (z. B. alle Gleisabschnitte von Linie 7) als eine Strecke."""
+
+    def __init__(self, parts: list[Track]):
+        self.parts = parts
+
+    def locate(self, latlng: list[float]) -> tuple[float, float]:
+        return min(part.locate(latlng) for part in self.parts)
+
+
+def load_tracks() -> dict[str, Track | MultiTrack]:
     data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
     route = data["route"]
     lat0 = route["points"][0][0]
     return {
         "route": Track(route["points"], lat0, route["km"]),
-        "tram": Track(data["tram"]["ride"]["line"], lat0),
+        # Ganze Linie 7, nicht nur die geplante Fahrt – Einstieg kann abweichen.
+        "tram": MultiTrack(
+            [Track(data["tram"]["ride"]["line"], lat0)]
+            + [Track(seg, lat0) for seg in data["tram"]["segs"] if len(seg) > 1]
+        ),
         "walk": Track(data["walk"]["line"], lat0),
     }
 
