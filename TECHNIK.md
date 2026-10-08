@@ -11,8 +11,9 @@ Aufbau und Pflege der Webseite https://sebastianzug.github.io/RoseesRoboterReise
   - `fotos.json`, `fotos/` – Fotos von unterwegs (automatisch erzeugt, siehe unten)
 - `sources/` – Kartenexporte als Datenquelle
   - `20261005_FG_DD_corrected.html` – finale Route
-  - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) und geplante Bahnfahrt
-  - `fussweg_bischofsweg_4transferlab.json` – Fußweg von der Haltestelle Bischofsweg zum 4transferLab (OSRM, OSM-Daten)
+  - `20260930_103443_FG_DD_enhanced.html` – Linie 7 (OSM-Relation 1894481) als Gesamtnetz
+  - `strassenbahn_2026-10-07.json` – tatsächliche Straßenbahnfahrt am 7.10.2026 (Gompitz – S-Bahnhof Bischofsplatz, Umleitung über Bahnhof Neustadt; Gleise aus OSM)
+  - `fussweg_bischofsplatz_4transferlab.json` – Fußweg vom S-Bahnhof Bischofsplatz zum 4transferLab (OSRM, OSM-Daten)
 - `build.py` – enthält Start (RoboLab, Burgstraße 36) und Ziel (4transferLab, Fritz-Reuter-Straße 1), liest die Quellen und schreibt `docs/data.json` (Route vereinfacht auf 1 m Toleranz)
 - `archive/` – frühere Entwürfe (Routenplanung V1/V2, Fahrrad-Evaluierung)
 

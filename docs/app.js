@@ -123,7 +123,11 @@ function drawTram(map, tram) {
   L.polyline(ride.line, { ...opts, color: "#ffffff", weight: 11, opacity: 0.9 }).addTo(rideLayer);
   L.polyline(ride.line, { ...opts, color: TRAM_COLOR, weight: 7, opacity: 1 }).addTo(rideLayer);
 
-  tram.stops.forEach(([lat, lon, name]) => {
+  // Haltestellen der tatsächlichen Fahrt (inkl. Umleitung) hervorgehoben, übrige Linie-7-Haltestellen hell.
+  const rideStops = new Set(ride.stops.map((s) => s[2]));
+  const allStops = ride.stops.concat(tram.stops.filter((s) => !rideStops.has(s[2])));
+  allStops.forEach(([lat, lon, name]) => {
+    const onRide = rideStops.has(name);
     const isEnd = name === ride.from || name === ride.to;
     const marker = L.circleMarker([lat, lon], {
       pane: "tram",
@@ -141,7 +145,7 @@ function drawTram(map, tram) {
         direction: name === ride.from ? "left" : "right",
       }).addTo(rideLayer);
     } else {
-      marker.bindTooltip(`Linie 7: ${name}`, { direction: "top" }).addTo(network);
+      marker.bindTooltip(`Linie 7: ${name}`, { direction: "top" }).addTo(onRide ? rideLayer : network);
     }
   });
 
@@ -324,7 +328,7 @@ async function main() {
       layer: car,
     })),
     {
-      label: `Bahnfahrt Linie 7: ${ride.from} – ${ride.to} (${formatKm(ride.km)})`,
+      label: `Bahnfahrt Linie 7: ${ride.from.split(",")[0]} – ${ride.to} (${formatKm(ride.km)}, Umleitung über Bahnhof Neustadt)`,
       color: TRAM_COLOR,
       thick: true,
       layer: tram.ride,

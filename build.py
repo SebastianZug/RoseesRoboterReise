@@ -18,7 +18,9 @@ ROOT = Path(__file__).parent
 SOURCES = ROOT / "sources"
 ROUTE_FILE = SOURCES / "20261005_FG_DD_corrected.html"
 TRAM_FILE = SOURCES / "20260930_103443_FG_DD_enhanced.html"
-WALK_FILE = SOURCES / "fussweg_bischofsweg_4transferlab.json"
+# Tatsächliche Fahrt am 7.10.2026: Einstieg Gompitz, wegen Baustelle ab Albertplatz über Bahnhof Neustadt.
+RIDE_FILE = SOURCES / "strassenbahn_2026-10-07.json"
+WALK_FILE = SOURCES / "fussweg_bischofsplatz_4transferlab.json"
 OUTPUT_FILE = ROOT / "docs" / "data.json"
 
 # Koordinaten per Nominatim (OpenStreetMap) zur jeweiligen Adresse ermittelt.
@@ -124,7 +126,7 @@ def build() -> dict[str, Any]:
     route_data = extract_const(ROUTE_FILE.read_text(encoding="utf-8"), "D")
     tram_html = TRAM_FILE.read_text(encoding="utf-8")
     tram = extract_const(tram_html, "TRAM7")
-    ride = extract_const(tram_html, "RIDE")
+    ride = json.loads(RIDE_FILE.read_text(encoding="utf-8"))
 
     walk = json.loads(WALK_FILE.read_text(encoding="utf-8"))
 
@@ -154,6 +156,7 @@ def build() -> dict[str, Any]:
                 "from": ride["from"],
                 "to": ride["to"],
                 "km": ride["km"],
+                "note": ride["note"],
                 "stops": ride["stops"],
                 "line": ride["line"],
             },
@@ -169,7 +172,7 @@ def main() -> int:
 
     route, ride = payload["route"], payload["tram"]["ride"]
     print(f"Route: {route['file']} ({route['km']} km, {len(route['points'])} Punkte nach Vereinfachung)")
-    print(f"Linie 7: {ride['from']} -> {ride['to']} ({ride['km']} km, {len(payload['tram']['stops'])} Haltestellen)")
+    print(f"Linie 7: {ride['from']} -> {ride['to']} ({ride['km']} km, {len(ride['stops'])} Haltestellen)")
     print(f"Geschrieben: {OUTPUT_FILE} ({OUTPUT_FILE.stat().st_size / 1024:.1f} KB)")
     return 0
 

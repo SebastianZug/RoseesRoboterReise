@@ -23,9 +23,9 @@ Die Reise steht im Zusammenhang mit dem Forschungsprojekt **[Lieferroboter-3L](h
 | **Start** | RoboLab der TU Bergakademie Freiberg, Burgstraße 36, Freiberg – 7. Oktober 2026, ca. 7:15 Uhr |
 | **Ziel** | 4transferLab, Fritz-Reuter-Straße 1, Dresden-Neustadt – angekommen gegen 18:50 Uhr |
 | **Route** | 37,9 km über Feld- und Radwege, Ortsdurchfahrten und Landstraßen bis an den Dresdner Stadtrand |
-| **Weiter mit** | Straßenbahn Linie 7 durch Dresden bis zur Haltestelle Bischofsweg, dann zu Fuß zum 4transferLab |
+| **Weiter mit** | Straßenbahn Linie 7 ab Gompitz durch Dresden – wegen einer Baustelle ab Albertplatz umgeleitet über den Bahnhof Neustadt bis zum S-Bahnhof Bischofsplatz –, dann 170 m zu Fuß zum 4transferLab |
 
-Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee wegen der hohen Verkehrsbelastung im Feierabendverkehr im Kofferraum zurück – auf der Karte ist er orange gestrichelt markiert. Am frühen Abend ging es in Gompitz in die Straßenbahn, vorbei an Semperoper und Theaterplatz, und vom Bischofsweg die letzten Meter zu Fuß ins 4transferLab.
+Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee wegen der hohen Verkehrsbelastung im Feierabendverkehr im Kofferraum zurück – auf der Karte ist er orange gestrichelt markiert. Am frühen Abend ging es in Gompitz in die Straßenbahn, vorbei an Semperoper und Theaterplatz, und vom Bischofsplatz die letzten Meter zu Fuß ins 4transferLab.
 
 Unterwegs hat das Team **59 Fotos** gemacht. Sie erscheinen auf der Karte genau dort, wo sie aufgenommen wurden – ein Klick auf einen Foto-Pin zeigt Bild, Uhrzeit und Streckenkilometer.
 
