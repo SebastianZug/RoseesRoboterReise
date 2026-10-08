@@ -2,6 +2,7 @@ const ROUTE_COLOR = "#1769ff";
 const TRAM_COLOR = "#7b3fa0";
 const TRAM_LIGHT = "#bfa3d1";
 const CAR_COLOR = "#f39200";
+const SKIPPED_COLOR = "#8a9499";
 
 async function loadData() {
   const response = await fetch("data.json", { cache: "no-cache" });
@@ -36,14 +37,14 @@ function nearestIndex(points, latlng) {
   return best;
 }
 
-// Abschnitte, die Rosee im Auto zurückgelegt hat – transparent über der Route markiert.
-function drawCarSections(map, sections) {
+// Abschnitte, die Rosee im Auto zurückgelegt hat bzw. nicht gefahren ist – transparent über der Route markiert.
+function drawCarSections(map, sections, color = CAR_COLOR, dash = "10, 8") {
   const layer = L.layerGroup();
   sections.forEach((section) => {
     const reason = section.reason ? ` – ${section.reason}` : "";
     const label = `${section.label}: km ${formatKmRange(section.from_km, section.to_km)}${reason}`;
     L.polyline(section.points, { color: "#ffffff", weight: 10, opacity: 0.95, interactive: false }).addTo(layer);
-    L.polyline(section.points, { color: CAR_COLOR, weight: 6, opacity: 1, dashArray: "10, 8" })
+    L.polyline(section.points, { color, weight: 6, opacity: 1, dashArray: dash })
       .bindTooltip(label, { sticky: true })
       .addTo(layer);
   });
@@ -68,7 +69,7 @@ function drawRoute(map, route, cum) {
 
   const last = route.points[route.points.length - 1];
   L.circleMarker(last, { radius: 8, weight: 3, color: "#ffffff", fillColor: "#1f1f1e", fillOpacity: 1 })
-    .bindTooltip("Ende Robotertrack", { direction: "right" })
+    .bindTooltip("Ende der geplanten Route (Löbtau, Tharandter Straße)", { direction: "right" })
     .addTo(layer);
   return layer.addTo(map);
 }
@@ -312,6 +313,8 @@ async function main() {
   const route = drawRoute(map, state.route, cum);
   const carSections = state.route.car || [];
   const car = drawCarSections(map, carSections);
+  const skippedSections = state.route.skipped || [];
+  const skipped = drawCarSections(map, skippedSections, SKIPPED_COLOR, "4, 8");
   const places = drawPlaces(map, state.places, state.walk);
   const photos = await loadPhotos();
   const photoLayer = drawPhotos(map, photos);
@@ -326,6 +329,13 @@ async function main() {
       dashed: true,
       thick: true,
       layer: car,
+    })),
+    ...skippedSections.map((s) => ({
+      label: `${s.label} (km ${formatKmRange(s.from_km, s.to_km)})`,
+      color: SKIPPED_COLOR,
+      dashed: true,
+      thick: true,
+      layer: skipped,
     })),
     {
       label: `Bahnfahrt Linie 7: ${ride.from.split(",")[0]} – ${ride.to} (${formatKm(ride.km)}, Umleitung über Bahnhof Neustadt)`,

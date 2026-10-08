@@ -50,6 +50,17 @@ CAR_SECTIONS = [
     }
 ]
 
+# Teil der geplanten Route, den Rosee nicht gefahren ist: Nach dem letzten Foto auf der Route
+# (17:35 Uhr, km 32,0) ging es über den Bahnübergang zur Haltestelle Gompitz und in die Straßenbahn.
+SKIPPED_SECTIONS = [
+    {
+        "from_km": 32.1,
+        "to_km": None,  # bis zum Ende der Route
+        "label": "Geplant, nicht gefahren",
+        "reason": "ab hier in Gompitz in die Straßenbahn Linie 7 umgestiegen",
+    }
+]
+
 # Douglas-Peucker tolerance in metres; keeps data.json small without visible change.
 SIMPLIFY_M = 1.0
 
@@ -118,6 +129,14 @@ def sub_line(points: list[list[float]], total_km: float, from_km: float, to_km: 
     return [at(from_km), *inner, at(to_km)]
 
 
+def sections(route: list[list[float]], total_km: float, specs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out = []
+    for spec in specs:
+        to_km = spec["to_km"] if spec["to_km"] is not None else total_km
+        out.append({**spec, "to_km": to_km, "points": rounded(sub_line(route, total_km, spec["from_km"], to_km))})
+    return out
+
+
 def rounded(points: list[list[float]]) -> list[list[float]]:
     return [[round(p[0], 6), round(p[1], 6)] for p in points]
 
@@ -142,10 +161,8 @@ def build() -> dict[str, Any]:
             "file": ROUTE_FILE.name,
             "km": round(length_km(raw), 2),
             "points": route,
-            "car": [
-                {**section, "points": rounded(sub_line(route, round(length_km(raw), 2), section["from_km"], section["to_km"]))}
-                for section in CAR_SECTIONS
-            ],
+            "car": sections(route, round(length_km(raw), 2), CAR_SECTIONS),
+            "skipped": sections(route, round(length_km(raw), 2), SKIPPED_SECTIONS),
         },
         "tram": {
             "name": "Straßenbahn Linie 7",

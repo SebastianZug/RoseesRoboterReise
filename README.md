@@ -25,7 +25,7 @@ Die Reise steht im Zusammenhang mit dem Forschungsprojekt **[Lieferroboter-3L](h
 | **Route** | 37,9 km über Feld- und Radwege, Ortsdurchfahrten und Landstraßen bis an den Dresdner Stadtrand |
 | **Weiter mit** | Straßenbahn Linie 7 ab Gompitz durch Dresden – wegen einer Baustelle ab Albertplatz umgeleitet über den Bahnhof Neustadt bis zum S-Bahnhof Bischofsplatz –, dann 170 m zu Fuß zum 4transferLab |
 
-Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee wegen der hohen Verkehrsbelastung im Feierabendverkehr im Kofferraum zurück – auf der Karte ist er orange gestrichelt markiert. Am frühen Abend ging es in Gompitz in die Straßenbahn, vorbei an Semperoper und Theaterplatz, und vom Bischofsplatz die letzten Meter zu Fuß ins 4transferLab.
+Rosee fuhr den Großteil der Strecke selbst, begleitet vom Team. Einen Abschnitt zwischen km 21 und km 29 legte Rosee wegen der hohen Verkehrsbelastung im Feierabendverkehr im Kofferraum zurück – auf der Karte ist er orange gestrichelt markiert. Am frühen Abend ging es in Gompitz in die Straßenbahn – die letzten knapp 6 km der geplanten Route bis Löbtau sind deshalb grau als „geplant, nicht gefahren“ markiert –, vorbei an Semperoper und Theaterplatz, und vom Bischofsplatz die letzten Meter zu Fuß ins 4transferLab.
 
 Unterwegs hat das Team **59 Fotos** gemacht. Sie erscheinen auf der Karte genau dort, wo sie aufgenommen wurden – ein Klick auf einen Foto-Pin zeigt Bild, Uhrzeit und Streckenkilometer.
 
