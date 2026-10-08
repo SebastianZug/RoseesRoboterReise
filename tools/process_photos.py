@@ -6,7 +6,10 @@ Für jedes Foto im Upload-Ordner:
 - verkleinerte Fassungen ohne Metadaten nach docs/fotos/ schreiben,
 - den Eintrag in docs/fotos.json ergänzen.
 
-Fotos ohne GPS bleiben im Upload-Ordner liegen (sie enthalten keine Position).
+Fotos ohne GPS bleiben im Upload-Ordner liegen (sie enthalten keine Position) – außer ihre Position
+steht in fotos-upload/positionen.json, z. B. für Fotos anderer, deren Metadaten verloren gingen:
+  {"datei.jpg": {"km": 17.15, "date": "2026-10-07", "between": ["14:41", "14:52"], "credit": "Name"}}
+("credit" ist optional; erledigte Einträge werden aus der Datei entfernt.)
 Fotos weit abseits der Strecke werden gelöscht und nicht veröffentlicht.
 Ein Bericht geht nach stdout und, in GitHub Actions, in die Job-Zusammenfassung.
 """
@@ -27,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 UPLOAD_DIR = ROOT / "fotos-upload"
 OUT_DIR = ROOT / "docs" / "fotos"
 INDEX_FILE = ROOT / "docs" / "fotos.json"
+POSITIONS_FILE = UPLOAD_DIR / "positionen.json"
 DATA_FILE = ROOT / "docs" / "data.json"
 
 MAX_DISTANCE_M = 250
@@ -89,6 +93,15 @@ class Track:
             self.cum.append(self.cum[-1] + math.dist(a, b))
         self.scale = (total_km * 1000 / self.cum[-1]) if total_km and self.cum[-1] else 1.0
 
+    def point_at(self, km: float) -> list[float]:
+        """Koordinate beim Streckenkilometer km."""
+        target = km * 1000 / self.scale
+        i = next((j for j in range(1, len(self.cum)) if self.cum[j] >= target), len(self.cum) - 1)
+        span = self.cum[i] - self.cum[i - 1]
+        f = 0.0 if span == 0 else (target - self.cum[i - 1]) / span
+        (ax, ay), (bx, by) = self.xy[i - 1], self.xy[i]
+        return [round((ay + f * (by - ay)) / self.ky, 6), round((ax + f * (bx - ax)) / self.kx, 6)]
+
     def locate(self, latlng: list[float]) -> tuple[float, float]:
         """Abstand in m und Streckenkilometer des nächstgelegenen Punkts."""
         px, py = latlng[1] * self.kx, latlng[0] * self.ky
@@ -148,6 +161,7 @@ def main() -> int:
     known = {entry["id"] for entry in index}
     tracks = load_tracks()
     report: list[str] = []
+    positions = json.loads(POSITIONS_FILE.read_text(encoding="utf-8")) if POSITIONS_FILE.exists() else {}
 
     uploads = sorted(p for p in UPLOAD_DIR.glob("*") if p.suffix.lower() in IMAGE_EXTENSIONS)
     for path in uploads:
@@ -163,6 +177,28 @@ def main() -> int:
             latlng = read_gps(exif)
             taken_at = read_time(exif)
             img = ImageOps.exif_transpose(opened).convert("RGB")
+
+        if latlng is None and path.name in positions:
+            manual = positions.pop(path.name)
+            entry = {
+                "id": photo_id,
+                **save_variants(img, photo_id),
+                "takenAt": None,
+                "date": manual.get("date"),
+                "between": manual.get("between"),
+                "sortAt": f"{manual.get('date')}T{(manual.get('between') or ['00:00'])[0]}:59",
+                "latlng": tracks["route"].point_at(manual["km"]),
+                "section": "route",
+                "km": manual["km"],
+                "manual": True,
+            }
+            if manual.get("credit"):
+                entry["credit"] = manual["credit"]
+            index.append(entry)
+            known.add(photo_id)
+            path.unlink()
+            report.append(f"- `{path.name}`: veröffentlicht (km {manual['km']:.1f}, Position von Hand zugeordnet)")
+            continue
 
         if latlng is None:
             report.append(f"- `{path.name}`: **keine GPS-Position** – nicht veröffentlicht, bleibt im Upload-Ordner")
@@ -192,7 +228,13 @@ def main() -> int:
         detail = f"km {entry['km']:.1f}" if section == "route" else section
         report.append(f"- `{path.name}`: veröffentlicht ({detail}, {distance:.0f} m von der Strecke)")
 
-    index.sort(key=lambda e: e.get("takenAt") or "")
+    if POSITIONS_FILE.exists():
+        if positions:
+            POSITIONS_FILE.write_text(json.dumps(positions, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        else:
+            POSITIONS_FILE.unlink()
+
+    index.sort(key=lambda e: e.get("takenAt") or e.get("sortAt") or "")
     INDEX_FILE.write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     text = "\n".join(["## Fotos von unterwegs", *(report or ["- keine neuen Fotos"])])

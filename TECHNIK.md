@@ -31,6 +31,7 @@ Die Action [`fotos.yml`](.github/workflows/fotos.yml) startet bei jedem Upload u
 
 - liest GPS-Position und Aufnahmezeit aus den EXIF-Daten,
 - veröffentlicht nur Fotos höchstens 250 m neben Route, Straßenbahn Linie 7 oder Fußweg,
+- Fotos ohne GPS (z. B. von anderen, Metadaten verloren) bekommen ihre Position über `fotos-upload/positionen.json` (Streckenkilometer + Zeitraum, siehe `tools/process_photos.py`),
 - schreibt verkleinerte Fassungen ohne Metadaten nach `docs/fotos/` und trägt sie in `docs/fotos.json` ein,
 - entfernt den Upload; Fotos ohne GPS bleiben liegen, Fotos abseits der Strecke werden gelöscht.
 

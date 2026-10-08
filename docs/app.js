@@ -292,9 +292,19 @@ async function loadPhotos() {
 }
 
 // Uhrzeit und Datum direkt aus dem Zeitstempel (Ortszeit der Aufnahme, unabhängig von der Zeitzone des Betrachters).
-function photoTime(takenAt) {
-  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(takenAt || "");
-  return match ? { date: `${match[3]}.${match[2]}.${match[1]}`, clock: `${match[4]}:${match[5]}` } : null;
+// Fotos ohne Zeitstempel (Position von Hand zugeordnet) tragen stattdessen Datum + Zeitraum.
+function photoTime(photo) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(photo.takenAt || "");
+  if (match) {
+    const clock = `${match[4]}:${match[5]}`;
+    return { date: `${match[3]}.${match[2]}.${match[1]}`, pin: clock, text: `${clock} Uhr` };
+  }
+  const day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(photo.date || "");
+  if (day && photo.between) {
+    const [from, to] = photo.between;
+    return { date: `${day[3]}.${day[2]}.${day[1]}`, pin: `${from}–${to.slice(3)}`, text: `zwischen ${from} und ${to} Uhr` };
+  }
+  return null;
 }
 
 // Fotos von unterwegs als runde Pins, zentriert auf dem Aufnahmeort; Klick öffnet eine größere Ansicht.
@@ -310,7 +320,7 @@ function drawPhotos(map, photos) {
       const latest = cluster
         .getAllChildMarkers()
         .map((m) => m.options.photo)
-        .sort((a, b) => (a.takenAt || "").localeCompare(b.takenAt || ""))
+        .sort((a, b) => (a.takenAt || a.sortAt || "").localeCompare(b.takenAt || b.sortAt || ""))
         .pop();
       return L.divIcon({
         className: "photo-pin photo-cluster",
@@ -320,17 +330,24 @@ function drawPhotos(map, photos) {
     },
   });
   photos.forEach((photo) => {
-    const time = photoTime(photo.takenAt);
+    const time = photoTime(photo);
     const where =
       photo.section === "route" ? `bei km ${photo.km.toFixed(1).replace(".", ",")} der Route` : SECTION_LABELS[photo.section] || "";
     const icon = L.divIcon({
       className: "photo-pin",
-      html: `<img src="${escapeHtml(photo.pin)}" alt="" />${time ? `<span>${time.clock}</span>` : ""}`,
+      html: `<img src="${escapeHtml(photo.pin)}" alt="" />${time ? `<span>${time.pin}</span>` : ""}`,
       iconSize: [56, 56],
       iconAnchor: [28, 28], // mittig auf dem Aufnahmeort
       popupAnchor: [0, -28],
     });
-    const meta = [time && `${time.date}, ${time.clock} Uhr`, where].filter(Boolean).join(" · ");
+    const meta = [
+      time && `${time.date}, ${time.text}`,
+      where,
+      photo.manual && "Position nachträglich zugeordnet",
+      photo.credit && `Foto: ${photo.credit}`,
+    ]
+      .filter(Boolean)
+      .join(" · ");
     L.marker(photo.latlng, { icon, pane: "photos", title: "Foto anzeigen", riseOnHover: true, photo })
       .bindPopup(
         `<figure class="photo-popup"><a href="${escapeHtml(photo.full)}" target="_blank" rel="noopener" ` +
