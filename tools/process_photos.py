@@ -8,8 +8,10 @@ Für jedes Foto im Upload-Ordner:
 
 Fotos ohne GPS bleiben im Upload-Ordner liegen (sie enthalten keine Position) – außer ihre Position
 steht in fotos-upload/positionen.json, z. B. für Fotos anderer, deren Metadaten verloren gingen:
-  {"datei.jpg": {"km": 17.15, "date": "2026-10-07", "between": ["14:41", "14:52"], "credit": "Name"}}
-("credit" ist optional; erledigte Einträge werden aus der Datei entfernt.)
+  {"datei.jpg": {"km": 17.15, "date": "2026-10-07", "between": ["14:41", "14:52"],
+                 "credit": "Name", "license": "CC BY 4.0"}}
+("credit"/"license" sind optional – eine Lizenz nur mit Zustimmung des Urhebers; erledigte Einträge
+werden aus der Datei entfernt.)
 Fotos weit abseits der Strecke werden gelöscht und nicht veröffentlicht.
 Ein Bericht geht nach stdout und, in GitHub Actions, in die Job-Zusammenfassung.
 """
@@ -34,6 +36,9 @@ POSITIONS_FILE = UPLOAD_DIR / "positionen.json"
 DATA_FILE = ROOT / "docs" / "data.json"
 
 MAX_DISTANCE_M = 250
+# Urheber und Lizenz für hochgeladene Fotos mit GPS; Fotos anderer über positionen.json ("credit", "license").
+DEFAULT_CREDIT = "Sebastian Zug"
+DEFAULT_LICENSE = "CC BY 4.0"
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 SIZES = {"full": 1600, "thumb": 600}
 PIN_SIZE = 160
@@ -192,8 +197,9 @@ def main() -> int:
                 "km": manual["km"],
                 "manual": True,
             }
-            if manual.get("credit"):
-                entry["credit"] = manual["credit"]
+            for key in ("credit", "license"):
+                if manual.get(key):
+                    entry[key] = manual[key]
             index.append(entry)
             known.add(photo_id)
             path.unlink()
@@ -219,6 +225,8 @@ def main() -> int:
             "takenAt": taken_at,
             "latlng": latlng,
             "section": section,
+            "credit": DEFAULT_CREDIT,
+            "license": DEFAULT_LICENSE,
         }
         if section == "route":
             entry["km"] = round(where["route"][1], 2)

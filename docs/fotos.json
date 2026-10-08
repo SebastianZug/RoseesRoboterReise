@@ -10,7 +10,9 @@
    13.341761
   ],
   "section": "route",
-  "km": 0.0
+  "km": 0.0,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "588d3895c232",
@@ -23,7 +25,9 @@
    13.341606
   ],
   "section": "route",
-  "km": 1.74
+  "km": 1.74,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "972940c61292",
@@ -36,7 +40,9 @@
    13.345114
   ],
   "section": "route",
-  "km": 2.16
+  "km": 2.16,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "6ea9f8c4de19",
@@ -49,7 +55,9 @@
    13.34705
   ],
   "section": "route",
-  "km": 2.42
+  "km": 2.42,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "9da19d26c0f5",
@@ -62,7 +70,9 @@
    13.353372
   ],
   "section": "route",
-  "km": 2.94
+  "km": 2.94,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "0d149467ede3",
@@ -75,7 +85,9 @@
    13.360881
   ],
   "section": "route",
-  "km": 3.55
+  "km": 3.55,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "ccb12a6d9a64",
@@ -88,7 +100,9 @@
    13.369097
   ],
   "section": "route",
-  "km": 4.34
+  "km": 4.34,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "7cb619330857",
@@ -101,7 +115,9 @@
    13.372556
   ],
   "section": "route",
-  "km": 4.91
+  "km": 4.91,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "b187d705cc95",
@@ -114,7 +130,9 @@
    13.379056
   ],
   "section": "route",
-  "km": 5.53
+  "km": 5.53,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "f4c779b1199e",
@@ -127,7 +145,9 @@
    13.379814
   ],
   "section": "route",
-  "km": 5.6
+  "km": 5.6,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "0339c6dd55e8",
@@ -140,7 +160,9 @@
    13.381839
   ],
   "section": "route",
-  "km": 5.75
+  "km": 5.75,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "741b1357a1f0",
@@ -153,7 +175,9 @@
    13.388825
   ],
   "section": "route",
-  "km": 6.29
+  "km": 6.29,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "605b9c7ee17e",
@@ -166,7 +190,9 @@
    13.392311
   ],
   "section": "route",
-  "km": 6.6
+  "km": 6.6,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "f5f14b471b90",
@@ -179,7 +205,9 @@
    13.396542
   ],
   "section": "route",
-  "km": 6.92
+  "km": 6.92,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "bfb12d53afe1",
@@ -192,7 +220,9 @@
    13.39695
   ],
   "section": "route",
-  "km": 7.0
+  "km": 7.0,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "e04b29a1a9ee",
@@ -205,7 +235,9 @@
    13.396883
   ],
   "section": "route",
-  "km": 7.0
+  "km": 7.0,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "069847d800d6",
@@ -218,7 +250,9 @@
    13.397172
   ],
   "section": "route",
-  "km": 7.51
+  "km": 7.51,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "7d9ebff0f4fe",
@@ -231,7 +265,9 @@
    13.397172
   ],
   "section": "route",
-  "km": 7.51
+  "km": 7.51,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "dd6b53450df0",
@@ -244,7 +280,9 @@
    13.410108
   ],
   "section": "route",
-  "km": 8.61
+  "km": 8.61,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "a557b25ed87c",
@@ -257,7 +295,9 @@
    13.411789
   ],
   "section": "route",
-  "km": 8.95
+  "km": 8.95,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "206743a536f5",
@@ -270,7 +310,9 @@
    13.416436
   ],
   "section": "route",
-  "km": 9.42
+  "km": 9.42,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "5ac546e6c2ce",
@@ -283,7 +325,9 @@
    13.417378
   ],
   "section": "route",
-  "km": 9.55
+  "km": 9.55,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "0a2a848ab257",
@@ -296,7 +340,9 @@
    13.424897
   ],
   "section": "route",
-  "km": 10.33
+  "km": 10.33,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "fc7377a6f376",
@@ -309,7 +355,9 @@
    13.424847
   ],
   "section": "route",
-  "km": 10.32
+  "km": 10.32,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "078eb7df59e8",
@@ -322,7 +370,9 @@
    13.437822
   ],
   "section": "route",
-  "km": 11.46
+  "km": 11.46,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "8054185b3855",
@@ -335,7 +385,9 @@
    13.445908
   ],
   "section": "route",
-  "km": 12.05
+  "km": 12.05,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "6b8c54d7043b",
@@ -348,7 +400,9 @@
    13.458214
   ],
   "section": "route",
-  "km": 12.98
+  "km": 12.98,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "1ac28559f4e7",
@@ -361,7 +415,9 @@
    13.466756
   ],
   "section": "route",
-  "km": 13.72
+  "km": 13.72,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "2721a1c33c61",
@@ -374,7 +430,9 @@
    13.466492
   ],
   "section": "route",
-  "km": 13.88
+  "km": 13.88,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "1f5b970c487c",
@@ -387,7 +445,9 @@
    13.468447
   ],
   "section": "route",
-  "km": 14.21
+  "km": 14.21,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "5263ff18f613",
@@ -400,7 +460,9 @@
    13.468808
   ],
   "section": "route",
-  "km": 14.27
+  "km": 14.27,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "66d75c108ae8",
@@ -413,7 +475,9 @@
    13.468808
   ],
   "section": "route",
-  "km": 14.27
+  "km": 14.27,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "a82440eb58af",
@@ -426,7 +490,9 @@
    13.473628
   ],
   "section": "route",
-  "km": 15.13
+  "km": 15.13,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "406f1d612744",
@@ -439,7 +505,9 @@
    13.474239
   ],
   "section": "route",
-  "km": 16.42
+  "km": 16.42,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "c060ee4c016b",
@@ -452,7 +520,9 @@
    13.476942
   ],
   "section": "route",
-  "km": 16.73
+  "km": 16.73,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "91b84b9fa027",
@@ -465,7 +535,9 @@
    13.477081
   ],
   "section": "route",
-  "km": 16.91
+  "km": 16.91,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "169b33327cc1",
@@ -504,7 +576,9 @@
    50.998614,
    13.4782
   ],
-  "note": "Position korrigiert – GPS im Wald ungenau"
+  "note": "Position korrigiert – GPS im Wald ungenau",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "98dc84c793d1",
@@ -517,7 +591,9 @@
    13.485189
   ],
   "section": "route",
-  "km": 17.59
+  "km": 17.59,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "e79b28ca7a60",
@@ -530,7 +606,9 @@
    13.489933
   ],
   "section": "route",
-  "km": 17.95
+  "km": 17.95,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "240113c07612",
@@ -543,7 +621,9 @@
    13.499972
   ],
   "section": "route",
-  "km": 18.68
+  "km": 18.68,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "58edf9a3fd5c",
@@ -556,7 +636,9 @@
    13.513306
   ],
   "section": "route",
-  "km": 19.68
+  "km": 19.68,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "faf7ab9ca58d",
@@ -569,7 +651,9 @@
    13.523919
   ],
   "section": "route",
-  "km": 20.7
+  "km": 20.7,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "5066e5018ac3",
@@ -582,7 +666,9 @@
    13.526383
   ],
   "section": "route",
-  "km": 20.92
+  "km": 20.92,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "2a6cfae0c12b",
@@ -595,7 +681,9 @@
    13.5273
   ],
   "section": "route",
-  "km": 21.13
+  "km": 21.13,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "02c5e926c61b",
@@ -608,7 +696,9 @@
    13.526269
   ],
   "section": "route",
-  "km": 21.22
+  "km": 21.22,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "ff7afae4ed7d",
@@ -621,7 +711,9 @@
    13.558258
   ],
   "section": "route",
-  "km": 25.15
+  "km": 25.15,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "9d6b8d53db23",
@@ -634,7 +726,9 @@
    13.601097
   ],
   "section": "route",
-  "km": 29.07
+  "km": 29.07,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "1faddea96ea9",
@@ -647,7 +741,9 @@
    13.605772
   ],
   "section": "route",
-  "km": 29.55
+  "km": 29.55,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "f46e0eb474ad",
@@ -660,7 +756,9 @@
    13.604539
   ],
   "section": "route",
-  "km": 30.21
+  "km": 30.21,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "73e1efcae59c",
@@ -673,7 +771,9 @@
    13.606444
   ],
   "section": "route",
-  "km": 30.63
+  "km": 30.63,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "2e5ea2628907",
@@ -686,7 +786,9 @@
    13.612128
   ],
   "section": "route",
-  "km": 31.14
+  "km": 31.14,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "b6f27debd4bd",
@@ -699,7 +801,9 @@
    13.616111
   ],
   "section": "route",
-  "km": 31.44
+  "km": 31.44,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "b9714d3e0022",
@@ -712,7 +816,9 @@
    13.618697
   ],
   "section": "route",
-  "km": 31.62
+  "km": 31.62,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "2859985cdf92",
@@ -725,7 +831,9 @@
    13.62395
   ],
   "section": "route",
-  "km": 32.01
+  "km": 32.01,
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "620597e459e5",
@@ -737,7 +845,9 @@
    51.041306,
    13.625453
   ],
-  "section": "tram"
+  "section": "tram",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "5fc4524b72d9",
@@ -749,7 +859,9 @@
    51.040119,
    13.632636
   ],
-  "section": "tram"
+  "section": "tram",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "0671f07d72fc",
@@ -761,7 +873,9 @@
    51.053567,
    13.736839
   ],
-  "section": "tram"
+  "section": "tram",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "5d61bc9b4074",
@@ -773,7 +887,9 @@
    51.071836,
    13.746344
   ],
-  "section": "walk"
+  "section": "walk",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  },
  {
   "id": "b26db1b8e9ea",
@@ -785,6 +901,8 @@
    51.072206,
    13.744653
   ],
-  "section": "walk"
+  "section": "walk",
+  "credit": "Sebastian Zug",
+  "license": "CC BY 4.0"
  }
 ]

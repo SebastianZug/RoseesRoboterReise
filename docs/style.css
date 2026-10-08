@@ -243,6 +243,14 @@ body {
   color: var(--muted);
 }
 
+.photo-popup .photo-credit {
+  font-size: 0.72rem;
+}
+
+.meta a {
+  color: inherit;
+}
+
 .photo-cluster b {
   position: absolute;
   top: -6px;

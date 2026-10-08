@@ -45,3 +45,7 @@ Die Webseite zeigt
 - einen einblendbaren Zeitplan (Startzeit und Tempo frei wählbar).
 
 Wie die Karte aufgebaut ist, wie Fotos automatisch dazukommen und wie die Daten aktualisiert werden, steht in [TECHNIK.md](TECHNIK.md).
+
+## Lizenz
+
+Fotos und Texte: Sebastian Zug, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.de), sofern nicht anders angegeben · Code: [MIT](LICENSE) · Logos ausgenommen. Details und Ausnahmen in [LIZENZ.md](LIZENZ.md).

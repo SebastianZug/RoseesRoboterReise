@@ -280,6 +280,8 @@ function buildScheduleControls(map, layer, schedule, refresh) {
   document.getElementById("legend").appendChild(row);
 }
 
+const LICENSES = { "CC BY 4.0": "https://creativecommons.org/licenses/by/4.0/deed.de" };
+
 const SECTION_LABELS = { tram: "an der Straßenbahn Linie 7", walk: "auf dem Fußweg zum 4transferLab" };
 
 async function loadPhotos() {
@@ -345,15 +347,20 @@ function drawPhotos(map, photos) {
       where,
       photo.manual && "Position nachträglich zugeordnet",
       photo.note,
-      photo.credit && `Foto: ${photo.credit}`,
     ]
       .filter(Boolean)
       .join(" · ");
+    const license = LICENSES[photo.license];
+    const credit = photo.credit
+      ? `<span class="photo-credit">Foto: ${escapeHtml(photo.credit)}${
+          license ? ` · <a href="${license}" target="_blank" rel="noopener license">${escapeHtml(photo.license)}</a>` : ""
+        }</span>`
+      : "";
     L.marker(photo.latlng, { icon, pane: "photos", title: "Foto anzeigen", riseOnHover: true, photo })
       .bindPopup(
         `<figure class="photo-popup"><a href="${escapeHtml(photo.full)}" target="_blank" rel="noopener" ` +
           `title="Foto in voller Größe öffnen"><img src="${escapeHtml(photo.thumb)}" alt="Foto von unterwegs" /></a>` +
-          `<figcaption><span>${escapeHtml(meta)}</span></figcaption></figure>`,
+          `<figcaption><span>${escapeHtml(meta)}</span>${credit}</figcaption></figure>`,
         { maxWidth: 300, minWidth: 260 },
       )
       .addTo(layer);
@@ -368,7 +375,12 @@ function setMeta(state) {
   }
   parts.push(`Route: ${state.route.file}`);
   parts.push(`Linie 7: ${state.tram.file} (Geometrie © OpenStreetMap-Mitwirkende, ODbL)`);
-  document.getElementById("meta").textContent = parts.join(" · ");
+  const meta = document.getElementById("meta");
+  meta.textContent = parts.join(" · ") + " · ";
+  const license = document.createElement("a");
+  license.href = "https://github.com/SebastianZug/RoseesRoboterReise/blob/main/LIZENZ.md";
+  license.textContent = "Lizenzen: Fotos und Texte CC BY 4.0 (sofern nicht anders angegeben), Code MIT, Logos ausgenommen";
+  meta.appendChild(license);
 }
 
 async function main() {
