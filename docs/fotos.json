@@ -485,7 +485,8 @@
   ],
   "section": "route",
   "km": 17.15,
-  "manual": true
+  "manual": true,
+  "credit": "Matthias Nattke, Brandenburgische Technische Universität Cottbus-Senftenberg"
  },
  {
   "id": "3d9d265dd637",
