@@ -495,11 +495,16 @@
   "pin": "fotos/3d9d265dd637_pin.jpg",
   "takenAt": "2026-10-07T14:46:26+02:00",
   "latlng": [
+   51.001715,
+   13.479588
+  ],
+  "section": "route",
+  "km": 17.19,
+  "gpsLatlng": [
    50.998614,
    13.4782
   ],
-  "section": "route",
-  "km": 16.71
+  "note": "Position korrigiert – GPS im Wald ungenau"
  },
  {
   "id": "98dc84c793d1",

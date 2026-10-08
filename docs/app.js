@@ -344,6 +344,7 @@ function drawPhotos(map, photos) {
       time && `${time.date}, ${time.text}`,
       where,
       photo.manual && "Position nachträglich zugeordnet",
+      photo.note,
       photo.credit && `Foto: ${photo.credit}`,
     ]
       .filter(Boolean)
