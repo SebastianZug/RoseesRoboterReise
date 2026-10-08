@@ -468,6 +468,26 @@
   "km": 16.91
  },
  {
+  "id": "169b33327cc1",
+  "full": "fotos/169b33327cc1.jpg",
+  "thumb": "fotos/169b33327cc1_thumb.jpg",
+  "pin": "fotos/169b33327cc1_pin.jpg",
+  "takenAt": null,
+  "date": "2026-10-07",
+  "between": [
+   "14:41",
+   "14:52"
+  ],
+  "sortAt": "2026-10-07T14:41:59",
+  "latlng": [
+   51.00141,
+   13.479288
+  ],
+  "section": "route",
+  "km": 17.15,
+  "manual": true
+ },
+ {
   "id": "3d9d265dd637",
   "full": "fotos/3d9d265dd637.jpg",
   "thumb": "fotos/3d9d265dd637_thumb.jpg",
