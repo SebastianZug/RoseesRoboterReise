@@ -41,8 +41,7 @@ Die Webseite zeigt
 
 - die gefahrene Route von Freiberg nach Dresden,
 - die Straßenbahn Linie 7 und den Fußweg zum 4transferLab,
-- alle Fotos von unterwegs als Pins entlang der Strecke,
-- einen einblendbaren Zeitplan (Startzeit und Tempo frei wählbar).
+- alle Fotos von unterwegs als Pins entlang der Strecke.
 
 Wie die Karte aufgebaut ist, wie Fotos automatisch dazukommen und wie die Daten aktualisiert werden, steht in [TECHNIK.md](TECHNIK.md).
 
